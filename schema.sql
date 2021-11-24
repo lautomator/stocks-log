@@ -1,4 +1,11 @@
+DROP TABLE IF EXISTS account_info;
 DROP TABLE IF EXISTS stocks_log;
+
+CREATE TABLE account_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    account_value FLOAT NOT NULL,
+    maximum_risk INTEGER NOT NULL
+);
 
 CREATE TABLE stocks_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

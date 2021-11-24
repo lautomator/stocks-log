@@ -5,9 +5,162 @@
 {% block content %}
     <h2>Record Detail</h2>
 
-    <p>Record details are here.</p>
+    <div class="details-record-grid">
+        <table>
+            <tr>
+                <td>Investment</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Entry Date</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Shares</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Entry</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Stop</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Target</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Risk/Share</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Exit</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>Exit Date</td>
+                <td>%DATA%</td>
+            </tr>
+                <td>PnL</td>
+                <td>%DATA%</td>
+            </tr>
+            </tr>
+                <td>Notes</td>
+                <td>%DATA%</td>
+            </tr>
+            </tr>
+                <td>Chart</td>
+                <td>%DATA%</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="risk-profits-grid">
+        <h2>Risk Assessment</h2>
+
+        <table>
+            <tr>
+                <td>Total Account Value (cash)</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Amount to risk on each trade</td>
+                <td>%DATA%</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Entry Price</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Stop</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Risk/Share</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Overall Risk</td>
+                <td>2.5 - 7%</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>MAX Shares to Buy</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Actual Shares Bought</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Total Investment Amount</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="risk-profits-grid">
+        <h2>Potential Profits</h2>
+
+        <table>
+            <tr>
+                <td>Entry Price</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Shares</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Risk (%)</td>
+                <td>&nbsp;</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Profit Level</td>
+                <td>PnL</td>
+                <td>Price</td>
+            </tr>
+            <tr>
+                <td>1R</td>
+                <td>%DATA%</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>2R</td>
+                <td>%DATA%</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>3R</td>
+                <td>%DATA%</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>4R</td>
+                <td>%DATA%</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>5R</td>
+                <td>%DATA%</td>
+                <td>%DATA%</td>
+            </tr>
+        </table>
+    </div>
 
     <ul>
         <li>Post ID: {{ post_id }}</li>
+    </ul>
+{% endblock %}
+
+{% block footer %}
+    <ul>
+        <li><a href="/edit/1">edit this record</a></li>
+        <li><a href="/delete/1">delete this record</a></li>
     </ul>
 {% endblock %}

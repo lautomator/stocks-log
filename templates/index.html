@@ -5,13 +5,59 @@
 {% block content %}
     <h2>Main</h2>
 
-    <p>All of the records will be here, like a spreadsheet.
-        There will be several hundred per year. I will paginate the results.</p>
+    <h3>Account Details</h3>
+
+    <div class="account-details">
+        <table>
+            <tr>
+                <td>Acccount Value</td>
+                <td>%DATA%</td>
+            </tr>
+            <tr>
+                <td>Maximum Risk/Trade</td>
+                <td>%DATA%</td>
+            </tr>
+        </table>
+    </div>
+
+    <h3>Log</h3>
+
+    <div class="main-records-grid">
+        <table>
+            <thead>
+                <tr>
+                    <th>Investment</th>
+                    <th>Entry Date</th>
+                    <th>Shares</th>
+                    <th>Entry</th>
+                    <th>Stop</th>
+                    <th>Target</th>
+                    <th>Risk/Share</th>
+                    <th>Exit</th>
+                    <th>Exit Date</th>
+                    <th>PnL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="/post/1">%DATA%</a></td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                    <td>%DATA%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
 
 {% block footer %}
-    <p></p>
     <ul>
         <li>previous</li>
         <li>page x of x</li>

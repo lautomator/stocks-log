@@ -10,7 +10,7 @@ from flask import g
 app = Flask(__name__)
 
 # ------------------------------
-# Database operations
+# DATABASE OPERATIONS
 
 DATABASE = 'stocks.db'
 
@@ -35,29 +35,48 @@ def close_connection(exception):
 
 
 # ------------------------------
-# Functions
+# FUNCTIONS
 
-# calculators
-# and summary scripts
+# calculators, summary scripts,
+# and app functions
+
+def update_account_details():
+    pass
+
+def add_record():
+    pass
+
+def edit_record(post_id):
+    pass
+
+def delete_record(post_id):
+    pass
+
+def risk_reward_calc(data):
+    pass
+
+def report_summary(data):
+    pass
+
 
 
 # ------------------------------
-# Views
+# VIEWS
 
-# main index
+# main page
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# account details
+@app.route('/account-details')
+def acount_details():
+    return render_template('account-details.html')
 
 # record detail
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
     return render_template('post.html', post_id=post_id)
-
-# calculators
-@app.route('/calculators')
-def calculators():
-    return render_template('calcs.html')
 
 # summary report
 @app.route('/report')
@@ -68,3 +87,21 @@ def report():
 @app.route('/export')
 def export_log():
     return render_template('export.html')
+
+# add a post/record
+@app.route('/add')
+def add_post():
+    return render_template('add-post.html')
+
+# delete a post/record
+@app.route('/delete/<int:post_id>')
+def delete_post(post_id):
+    return render_template('delete-post.html', post_id=post_id)
+
+# edit a post/record
+@app.route('/edit/<int:post_id>')
+def edit_post(post_id):
+    return render_template('edit-post.html', post_id=post_id)
+
+
+
