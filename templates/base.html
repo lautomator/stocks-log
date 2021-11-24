@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="static/style.css" /> -->
+    <title>{% block title %}{% endblock %} / Stocks Log</title>
+</head>
+<body>
+    <header>
+        <h1>Stocks Log</h1>
+
+        <nav>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/calculators">calculators</a></li>
+                <li><a href="/report">report</a></li>
+                <li><a href="/export">export</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="content">{% block content %}{% endblock %}</div>
+
+    <footer>{% block footer %}{% endblock %}</footer>
+
+</body>
+</html>
