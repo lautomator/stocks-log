@@ -6,4 +6,60 @@
     <h2>Edit Record</h2>
 
     <p>Form with all of the record details here: {{ post_id }}</p>
+
+    <form method="POST">
+        <div>
+            <label>Investment</label>
+            <input type="text" name="investment">
+        </div>
+
+        <div>
+            <label>Entry Date</label>
+            <input type="date" name="entry_date">
+        </div>
+
+        <div>
+            <label>Shares</label>
+            <input type="number" name="shares">
+        </div>
+
+        <div>
+            <label>Entry</label>
+            <input type="number" name="entry_price">
+        </div>
+
+        <div>
+            <label>Stop</label>
+            <input type="number" name="stop_price">
+        </div>
+
+        <div>
+            <label>Target</label>
+            <input type="number" name="target">
+        </div>
+
+        <div>
+            <label>Exit</label>
+            <input type="number" name="exit_price">
+        </div>
+
+        <div>
+            <label>Exit Date</label>
+            <input type="date" name="exit_date">
+        </div>
+
+        <div>
+            <label>Notes</label>
+            <textarea name="notes"></textarea>
+        </div>
+
+        <div>
+            <label>Chart URL</label>
+            <input type="url" name="chart_url">
+        </div>
+
+        <div>
+            <input type="submit" name="submit" value="update record">
+        </div>
+    </form>
 {% endblock %}

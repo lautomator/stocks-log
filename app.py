@@ -69,7 +69,7 @@ def index():
     return render_template('index.html')
 
 # account details
-@app.route('/account-details')
+@app.route('/account-details', methods=['GET', 'POST'])
 def acount_details():
     return render_template('account-details.html')
 
@@ -84,24 +84,26 @@ def report():
     return render_template('report.html')
 
 # export the log
-@app.route('/export')
+@app.route('/export', methods=['GET', 'POST'])
 def export_log():
     return render_template('export.html')
 
 # add a post/record
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def add_post():
     return render_template('add-post.html')
 
+# edit a post/record
+@app.route('/edit/<int:post_id>', methods=['GET', 'POST'])
+def edit_post(post_id):
+    return render_template('edit-post.html', post_id=post_id)
+
 # delete a post/record
-@app.route('/delete/<int:post_id>')
+@app.route('/delete/<int:post_id>', methods=['GET', 'POST'])
 def delete_post(post_id):
     return render_template('delete-post.html', post_id=post_id)
 
-# edit a post/record
-@app.route('/edit/<int:post_id>')
-def edit_post(post_id):
-    return render_template('edit-post.html', post_id=post_id)
+
 
 
 

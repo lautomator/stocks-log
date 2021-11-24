@@ -3,8 +3,8 @@ DROP TABLE IF EXISTS stocks_log;
 
 CREATE TABLE account_info (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    account_value FLOAT NOT NULL,
-    maximum_risk INTEGER NOT NULL
+    account_value FLOAT NOT NULL DEFAULT 8000,
+    maximum_risk INTEGER NOT NULL DEFAULT 1
 );
 
 CREATE TABLE stocks_log (

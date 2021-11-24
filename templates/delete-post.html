@@ -6,4 +6,14 @@
     <h2>Delete Record</h2>
 
     <p>The record details here and a delete warning message: {{ post_id }}</p>
+
+    <form method="POST">
+        <div>
+            <input type="checkbox" name="delete_record"> Delete this record.
+        </div>
+
+        <div>
+            <input type="submit" name="delete" value="delete">
+        </div>
+    </form>
 {% endblock %}
