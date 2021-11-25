@@ -13,5 +13,5 @@ CREATE TABLE stocks_log (
     sell_date TIMESTAMP NOT NULL,
     pnl FLOAT NOT NULL,
     notes TEXT NOT NULL,
-    chart_url VARCHAR(255)
+    chart_url VARCHAR(255) NOT NULL
 );

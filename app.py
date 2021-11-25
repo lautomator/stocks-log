@@ -68,13 +68,6 @@ def report_summary(data):
 def index():
     return render_template('index.html')
 
-
-# account details
-@app.route('/account-details', methods=['GET', 'POST'])
-def acount_details():
-    return render_template('account-details.html')
-
-
 # account details submission
 
 # WILL NOT USE THIS PAGE: USE AS AN EXAMPLE OF THE POST RESPONSE DATA
@@ -114,7 +107,24 @@ def export_log():
 # add a post/record
 @app.route('/add', methods=['GET', 'POST'])
 def add_post():
-    return render_template('add-post.html')
+    has_posted = False
+    post_data = {}
+
+    if request.method == 'POST':
+        has_posted = True
+        # all of the POST data
+        post_data['investment'] = request.form['investment']
+        post_data['entry_date'] = request.form['entry_date']
+        post_data['shares'] = request.form['shares']
+        post_data['entry_price'] = request.form['entry_price']
+        post_data['stop_price'] = request.form['stop_price']
+        post_data['target'] = request.form['target']
+
+    return render_template(
+        'add-post.html',
+        has_posted=has_posted,
+        post_data=post_data
+    )
 
 
 # edit a post/record
