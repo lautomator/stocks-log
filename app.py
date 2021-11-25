@@ -68,35 +68,60 @@ def report_summary(data):
 def index():
     return render_template('index.html')
 
+
 # account details
 @app.route('/account-details', methods=['GET', 'POST'])
 def acount_details():
     return render_template('account-details.html')
+
+
+# account details submission
+
+# WILL NOT USE THIS PAGE: USE AS AN EXAMPLE OF THE POST RESPONSE DATA
+
+# @app.route('/account-details-submission', methods=['GET', 'POST'])
+# def acount_details_submission():
+#     has_posted = False
+#     account_details_amount = 0
+
+#     if request.method == 'POST':
+#         has_posted = True
+#         account_details_amount = request.form['account_value']
+#     return render_template(
+#         'account-details.html',
+#         has_posted=has_posted,
+#         account_details_amount=account_details_amount)
+
 
 # record detail
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
     return render_template('post.html', post_id=post_id)
 
+
 # summary report
 @app.route('/report')
 def report():
     return render_template('report.html')
+
 
 # export the log
 @app.route('/export', methods=['GET', 'POST'])
 def export_log():
     return render_template('export.html')
 
+
 # add a post/record
 @app.route('/add', methods=['GET', 'POST'])
 def add_post():
     return render_template('add-post.html')
 
+
 # edit a post/record
 @app.route('/edit/<int:post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
     return render_template('edit-post.html', post_id=post_id)
+
 
 # delete a post/record
 @app.route('/delete/<int:post_id>', methods=['GET', 'POST'])
