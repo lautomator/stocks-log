@@ -68,23 +68,6 @@ def report_summary(data):
 def index():
     return render_template('index.html')
 
-# account details submission
-
-# WILL NOT USE THIS PAGE: USE AS AN EXAMPLE OF THE POST RESPONSE DATA
-
-# @app.route('/account-details-submission', methods=['GET', 'POST'])
-# def acount_details_submission():
-#     has_posted = False
-#     account_details_amount = 0
-
-#     if request.method == 'POST':
-#         has_posted = True
-#         account_details_amount = request.form['account_value']
-#     return render_template(
-#         'account-details.html',
-#         has_posted=has_posted,
-#         account_details_amount=account_details_amount)
-
 
 # record detail
 @app.route('/post/<int:post_id>')
@@ -104,14 +87,22 @@ def export_log():
     return render_template('export.html')
 
 
-# add a post/record
+# ADD a post/record
 @app.route('/add', methods=['GET', 'POST'])
 def add_post():
-    has_posted = False
+    return render_template('add-post.html')
+
+
+# REVIEW a post/record
+@app.route('/review', methods=['GET', 'POST'])
+def review_post():
+    has_reviewed = False
     post_data = {}
 
     if request.method == 'POST':
-        has_posted = True
+        # confirm the submission
+        has_reviewed = True
+
         # all of the POST data
         post_data['investment'] = request.form['investment']
         post_data['entry_date'] = request.form['entry_date']
@@ -121,8 +112,34 @@ def add_post():
         post_data['target'] = request.form['target']
 
     return render_template(
-        'add-post.html',
-        has_posted=has_posted,
+        'review-add-post.html',
+        has_reviewed=has_reviewed,
+        post_data=post_data
+    )
+
+
+# CONFIRM a post/record
+@app.route('/confirm', methods=['GET', 'POST'])
+def confirm_post():
+    post_data = {}
+    success = False
+
+    if request.method == 'POST':
+        # all of the POST data
+        post_data['investment'] = request.form['investment']
+        post_data['entry_date'] = request.form['entry_date']
+        post_data['shares'] = request.form['shares']
+        post_data['entry_price'] = request.form['entry_price']
+        post_data['stop_price'] = request.form['stop_price']
+        post_data['target'] = request.form['target']
+
+        # SQL instertion into DB
+        # if response from DB is success, success = True
+        # else report any info for debugging
+
+    return render_template(
+        'confirm-add-post.html',
+        success=success,
         post_data=post_data
     )
 

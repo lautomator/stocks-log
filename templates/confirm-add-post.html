@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Add a Record{% endblock %}
+
+{% block content %}
+
+<h2>New Record</h2>
+
+{% if success %}
+<p>The record has been added.</p>
+
+<ul>
+    <li>Investment: {{ post_data['investment'] }}</li>
+    <li>Entry Date: {{ post_data['entry_date'] }}</li>
+    <li>Shares: {{ post_data['shares'] }}</li>
+    <li>Entry: {{ post_data['entry_price'] }}</li>
+    <li>Stop: {{ post_data['stop_price'] }}</li>
+    <li>Target: {{ post_data['target'] }}</li>
+</ul>
+
+{% else %}
+
+<p><em>There was an error writing to the DB</em></p>
+
+{% endif %}
+
+{% endblock %}
+
+
