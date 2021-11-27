@@ -21,11 +21,39 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+
+
+def insert_db(conn, data):
+    sql = ''' INSERT INTO stocks_log (
+        investment,
+        date_entered,
+        shares,entry,
+        stop,
+        target,
+        risk_share
+        ) VALUES (?, ?, ?, ?, ?, ?, ?); '''
+
+    values = (
+       data['investment'],
+       data['entry_date'],
+       data['shares'],
+       data['entry_price'],
+       data['stop_price'],
+       data['target'],
+       data['risk_per_share']
+    )
+
+    cur = conn.cursor()
+    cur.execute(sql, values)
+    conn.commit()
+    cur.close()
+
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -57,6 +85,10 @@ def risk_reward_calc(data):
 
 def report_summary(data):
     pass
+
+def get_risk_per_share(entry_price, stop_price):
+    risk = float(entry_price) - float(stop_price)
+    return round(risk, 2)
 
 
 
@@ -110,6 +142,9 @@ def review_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
+        post_data['risk_per_share'] = get_risk_per_share(
+            post_data['entry_price'],
+            post_data['stop_price'])
 
     return render_template(
         'review-add-post.html',
@@ -122,7 +157,6 @@ def review_post():
 @app.route('/confirm', methods=['GET', 'POST'])
 def confirm_post():
     post_data = {}
-    success = False
 
     if request.method == 'POST':
         # all of the POST data
@@ -132,14 +166,16 @@ def confirm_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
+        post_data['risk_per_share'] = request.form['risk_per_share']
 
         # SQL instertion into DB
         # if response from DB is success, success = True
         # else report any info for debugging
+        conn = get_db()
+        insert_db(conn, post_data)
 
     return render_template(
         'confirm-add-post.html',
-        success=success,
         post_data=post_data
     )
 
