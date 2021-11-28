@@ -5,23 +5,6 @@
 {% block content %}
     <h2>Main</h2>
 
-    <h3>Account Details</h3>
-
-    <div class="account-details">
-        <table>
-            <tr>
-                <td>Acccount Value</td>
-                <td>%DATA%</td>
-            </tr>
-            <tr>
-                <td>Maximum Risk/Trade</td>
-                <td>%DATA%</td>
-            </tr>
-        </table>
-    </div>
-
-    <h3>Log</h3>
-
     <div class="main-records-grid">
         <table>
             <thead>
@@ -39,28 +22,22 @@
                 </tr>
             </thead>
             <tbody>
+            {% for r in data %}
                 <tr>
-                    <td><a href="/post/1">%DATA%</a></td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
-                    <td>%DATA%</td>
+                    <td><a href="/post/{{ r['id'] }}">{{ r['investment'] }}</a></td>
+                    <td>{{ r['date_entered'] }}</td>
+                    <td>{{ r['shares'] }}</td>
+                    <td>{{ r['entry'] }}</td>
+                    <td>{{ r['stop'] }}</td>
+                    <td>{{ r['target'] }}</td>
+                    <td>{{ r['risk_share'] }}</td>
+                    <td>{{ r['exit'] }}</td>
+                    <td>{{ r['sell_date'] }}</td>
+                    <td>{{ r['pnl'] }}</td>
                 </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
 
-{% endblock %}
-
-{% block footer %}
-    <ul>
-        <li>previous</li>
-        <li>1-10 of x records</li>
-        <li>next</li>
-    </ul>
 {% endblock %}

@@ -11,22 +11,33 @@ app = Flask(__name__)
 
 # ------------------------------
 # DATABASE OPERATIONS
+# ref: https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/
 
 DATABASE = 'stocks.db'
 
+# ONLY TO BE USED FOR INITIAL OR YEARLY SETUP
 def init_db():
     with app.app_context():
         db = get_db()
         with app.open_resource('schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
-
+# ------------------------------
 
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
     return db
+
+
+def query_db(query, args=(), one=False):
+    # returns a tuple
+    cur = get_db().execute(query, args)
+    rv = cur.fetchall()
+    cur.close()
+    return (rv[0] if rv else None) if one else rv
 
 
 def insert_db(conn, data):
@@ -98,7 +109,9 @@ def get_risk_per_share(entry_price, stop_price):
 # main page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    sql = 'select * from stocks_log'
+    data = query_db(sql)
+    return render_template('index.html', data=data)
 
 
 # record detail
