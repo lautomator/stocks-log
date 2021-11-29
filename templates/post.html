@@ -110,51 +110,40 @@
         <h2>Potential Profits</h2>
 
         <table>
-            <tr>
-                <td>Entry Price</td>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['entry'] }}</td>
-            </tr>
-            <tr>
-                <td>Shares</td>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['actual_shares'] }}</td>
-            </tr>
-            <tr>
-                <td>Risk (%)</td>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['overall_risk'] * 100 }}%</td>
-            </tr>
-            <tr>
-                <td>Profit Level</td>
-                <td>PnL</td>
-                <td>Price</td>
-            </tr>
-            <tr>
-                <td>1R</td>
-                <td>%DATA%</td>
-                <td>%DATA%</td>
-            </tr>
-            <tr>
-                <td>2R</td>
-                <td>%DATA%</td>
-                <td>%DATA%</td>
-            </tr>
-            <tr>
-                <td>3R</td>
-                <td>%DATA%</td>
-                <td>%DATA%</td>
-            </tr>
-            <tr>
-                <td>4R</td>
-                <td>%DATA%</td>
-                <td>%DATA%</td>
-            </tr>
-            <tr>
-                <td>5R</td>
-                <td>%DATA%</td>
-                <td>%DATA%</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Profit Level</th>
+                    <th>Price</th>
+                    <th>PnL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1R</td>
+                    <td>{{ profit_data['1r']['price'] }}</td>
+                    <td>{{ profit_data['1r']['pnl'] }}</td>
+                </tr>
+                <tr>
+                    <td>2R</td>
+                    <td>{{ profit_data['2r']['price'] }}</td>
+                    <td>{{ profit_data['2r']['pnl'] }}</td>
+                </tr>
+                <tr>
+                    <td>3R</td>
+                    <td>{{ profit_data['3r']['price'] }}</td>
+                    <td>{{ profit_data['3r']['pnl'] }}</td>
+                </tr>
+                <tr>
+                    <td>4R</td>
+                    <td>{{ profit_data['4r']['price'] }}</td>
+                    <td>{{ profit_data['4r']['pnl'] }}</td>
+                </tr>
+                <tr>
+                    <td>5R</td>
+                    <td>{{ profit_data['5r']['price'] }}</td>
+                    <td>{{ profit_data['5r']['pnl'] }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

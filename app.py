@@ -99,9 +99,9 @@ def delete_record(post_id):
     pass
 
 
-def risk_reward_calc(data):
+def risk_calc(data):
     # account value and risk per trade are hard coded for now
-    risk_reward = {
+    risk = {
         'account_value': 10000,
         'risk_per_trade': .02,
         'risk_per_trade_amt': None,
@@ -115,26 +115,59 @@ def risk_reward_calc(data):
     }
 
     # overall risk = risk per share / entry price
-    risk_reward['overall_risk'] = round(risk_reward['risk_share']\
-        / risk_reward['entry'], 3)
+    risk['overall_risk'] = round(risk['risk_share']\
+        / risk['entry'], 2)
 
     # max risk amount per trade (given the account value)
-    risk_reward['risk_per_trade_amt'] = risk_reward['account_value']\
-        * risk_reward['risk_per_trade']
+    risk['risk_per_trade_amt'] = risk['account_value']\
+        * risk['risk_per_trade']
 
-    risk_reward['max_shares'] = round(risk_reward['risk_per_trade_amt']\
-        / risk_reward['risk_share'])
+    risk['max_shares'] = round(risk['risk_per_trade_amt']\
+        / risk['risk_share'])
 
-    risk_reward['investment_total'] = risk_reward['entry']\
-        * risk_reward['actual_shares']
+    risk['investment_total'] = risk['entry']\
+        * risk['actual_shares']
+    return risk
 
-    return risk_reward
 
-def potential_profits(data):
-    pass
+def profit_calc(data):
+    potential_profits = {
+        '1r': {},
+        '2r': {},
+        '3r': {},
+        '4r': {},
+        '5r': {}
+    }
+    entry_price = data['entry']
+    no_of_shares = data['actual_shares']
+    risk_perc = data['overall_risk']
+
+    def price(level, entry_price, risk_perc):
+        result = round((risk_perc * level + 1) * entry_price, 2)
+        return result
+
+    def pnl(price, entry_price, no_of_shares):
+        result = (price - entry_price) * no_of_shares
+        return round(result, 2)
+
+    potential_profits['1r']['price'] = price(1, entry_price, risk_perc)
+    potential_profits['2r']['price'] = price(2, entry_price, risk_perc)
+    potential_profits['3r']['price'] = price(3, entry_price, risk_perc)
+    potential_profits['4r']['price'] = price(4, entry_price, risk_perc)
+    potential_profits['5r']['price'] = price(5, entry_price, risk_perc)
+
+    potential_profits['1r']['pnl'] = price(potential_profits['1r']['price'], entry_price, no_of_shares)
+    potential_profits['2r']['pnl'] = price(potential_profits['2r']['price'], entry_price, no_of_shares)
+    potential_profits['3r']['pnl'] = price(potential_profits['3r']['price'], entry_price, no_of_shares)
+    potential_profits['4r']['pnl'] = price(potential_profits['4r']['price'], entry_price, no_of_shares)
+    potential_profits['5r']['pnl'] = price(potential_profits['5r']['price'], entry_price, no_of_shares)
+
+    return potential_profits
+
 
 def report_summary(data):
     pass
+
 
 def get_risk_per_share(entry_price, stop_price):
     risk = float(entry_price) - float(stop_price)
@@ -158,8 +191,8 @@ def index():
 def show_post(post_id):
     sql = 'select * from stocks_log where id = ?'
     data = query_db(sql, [post_id], one=True)
-    risk_data = risk_reward_calc(data)
-    profit_data = {}
+    risk_data = risk_calc(data)
+    profit_data = profit_calc(risk_data)
     return render_template(
         'post.html',
         post_id=post_id,

@@ -4,6 +4,7 @@ ref: https://flask.palletsprojects.com/en/2.0.x/
 ref: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
 
+
 ## Running the App
 To start the virtual environment and get the server running:
 
@@ -15,7 +16,7 @@ To stop the server and the virtual environment:
 
 * `CTRL+C`
 
-## Development
-
+## Database
+ref: https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/
 
 
