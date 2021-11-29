@@ -92,6 +92,31 @@ def delete_record(post_id):
     pass
 
 def risk_reward_calc(data):
+    # account value and risk per trade are hard coded for now
+    risk_reward = {
+        'account_value': 10000,
+        'risk_per_trade': .01,
+        'risk_per_trade_amt': None,
+        'entry': data['entry'],
+        'stop': data['stop'],
+        'risk_share': data['risk_share'],
+        'overall_risk': None,
+        'max_shares': None,
+        'actual_shares': data['shares'],
+        'investment_total': None
+    }
+
+    # overall risk = risk per share / entry price
+    risk_reward['overall_risk'] = risk_reward['risk_share']\
+        / risk_reward['entry']
+
+    # max risk amount per trade (given the account value)
+    risk_reward['risk_per_trade_amt'] = risk_reward['account_value']\
+        * risk_reward['risk_per_trade']
+
+    return risk_reward
+
+def potential_profits(data):
     pass
 
 def report_summary(data):
@@ -119,7 +144,15 @@ def index():
 def show_post(post_id):
     sql = 'select * from stocks_log where id = ?'
     data = query_db(sql, [post_id], one=True)
-    return render_template('post.html', data=data)
+    risk_data = risk_reward_calc(data)
+    profit_data = {}
+    return render_template(
+        'post.html',
+        post_id=post_id,
+        data=data,
+        risk_data=risk_data,
+        profit_data=profit_data
+    )
 
 
 # summary report

@@ -44,3 +44,30 @@
     </div>
 
 {% endblock %}
+
+{% block footer %}
+    <form method="GET" action="/">
+        <select name="orderby">
+            <option value="-">Order By</option>
+            <option value="investment">Investment</option>
+            <option value="entry_date">Entry Date</option>
+            <option value="shares">Shares</option>
+            <option value="entry">Entry</option>
+            <option value="stop">Stop</option>
+            <option value="target">Target</option>
+            <option value="risk_share">Risk/Share</option>
+            <option value="exit">Exit</option>
+            <option value="exit_date">Exit Date</option>
+            <option value="pnl">PnL</option>
+        </select>
+
+        <select name="order">
+            <option value="-">Order</option>
+            <option value="asc">ASC</option>
+            <option value="desc">DESC</option>
+        </select>
+
+        <input type="submit" name="submit" value="update">
+    </form>
+
+{% endblock %}

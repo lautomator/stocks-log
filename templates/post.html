@@ -30,21 +30,26 @@
                 <td>{{ data['risk_share'] }}</td>
             </tr>
                 <td>Exit</td>
-                <td>{{ data['exit'] }}</td>
+                <td>{% if data['exit'] == None %} &ndash; {% else %}
+                        ${{ data['exit'] }} {% endif %}</td>
             </tr>
                 <td>Exit Date</td>
-                <td>{{ data['sell_date'] }}</td>
+                <td>{% if data['sell_date'] == None %} &ndash; {% else %}
+                        {{ data['sell_date'] }} {% endif %}</td>
             </tr>
                 <td>PnL</td>
-                <td>{{ data['pnl'] }}</td>
+                <td>{% if data['pnl'] == None %} &ndash; {% else %}
+                        ${{ data['pnl'] }} {% endif %}</td>
             </tr>
             </tr>
                 <td>Notes</td>
-                <td>{{ data['notes'] }}</td>
+                <td>{% if data['notes'] == None %} &ndash; {% else %}
+                        ${{ data['notes'] }} {% endif %}</td>
             </tr>
             </tr>
                 <td>Chart</td>
-                <td>{{ data['chart_url'] }}</td>
+                <td>{% if data['chart_url'] == None %} &ndash; {% else %}
+                        ${{ data['chart_url'] }} {% endif %}</td>
             </tr>
         </table>
     </div>
@@ -56,11 +61,11 @@
             <tr>
                 <td>Total Account Value (cash)</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['account_value'] }}</td>
             </tr>
             <tr>
                 <td>Amount to risk on each trade</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['risk_per_trade'] * 100 }}%</td>
                 <td>%DATA%</td>
             </tr>
             <tr>
@@ -81,7 +86,7 @@
             <tr>
                 <td>Overall Risk</td>
                 <td>2.5 - 7%</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['overall_risk'] * 100 }}%</td>
             </tr>
             <tr>
                 <td>MAX Shares to Buy</td>
