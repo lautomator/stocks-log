@@ -99,7 +99,7 @@ def report_summary(data):
 
 def get_risk_per_share(entry_price, stop_price):
     risk = float(entry_price) - float(stop_price)
-    return round(risk, 2)
+    return "{:.2f}".format(risk)
 
 
 
@@ -117,7 +117,9 @@ def index():
 # record detail
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
-    return render_template('post.html', post_id=post_id)
+    sql = 'select * from stocks_log where id = ?'
+    data = query_db(sql, [post_id], one=True)
+    return render_template('post.html', data=data)
 
 
 # summary report

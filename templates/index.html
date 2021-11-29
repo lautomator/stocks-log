@@ -27,13 +27,16 @@
                     <td><a href="/post/{{ r['id'] }}">{{ r['investment'] }}</a></td>
                     <td>{{ r['date_entered'] }}</td>
                     <td>{{ r['shares'] }}</td>
-                    <td>{{ r['entry'] }}</td>
-                    <td>{{ r['stop'] }}</td>
-                    <td>{{ r['target'] }}</td>
-                    <td>{{ r['risk_share'] }}</td>
-                    <td>{{ r['exit'] }}</td>
-                    <td>{{ r['sell_date'] }}</td>
-                    <td>{{ r['pnl'] }}</td>
+                    <td>${{ r['entry'] }}</td>
+                    <td>${{ r['stop'] }}</td>
+                    <td>${{ r['target'] }}</td>
+                    <td>${{ r['risk_share'] }}</td>
+                    <td>{% if r['exit'] == None %} &ndash; {% else %}
+                        ${{ r['exit'] }} {% endif %}</td>
+                    <td>{% if r['sell_date'] == None %} &ndash; {% else %}
+                        {{ r['sell_date'] }} {% endif %}</td>
+                    <td>{% if r['pnl'] == None %} &ndash; {% else %}
+                        ${{ r['pnl'] }} {% endif %}</td>
                 </tr>
             {% endfor %}
             </tbody>
