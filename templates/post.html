@@ -65,43 +65,43 @@
             </tr>
             <tr>
                 <td>Amount to risk on each trade</td>
-                <td>{{ risk_data['risk_per_trade'] * 100 }}%</td>
-                <td>%DATA%</td>
+                <td><em>{{ risk_data['risk_per_trade'] * 100 }}%</em></td>
+                <td>{{ risk_data['risk_per_trade_amt'] }}</td>
             </tr>
             <tr>
                 <td>Entry Price</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['entry'] }}</td>
             </tr>
             <tr>
                 <td>Stop</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['stop'] }}</td>
             </tr>
             <tr>
                 <td>Risk/Share</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['risk_share'] }}</td>
             </tr>
             <tr>
                 <td>Overall Risk</td>
-                <td>2.5 - 7%</td>
+                <td><em>2.5 - 7%</em></td>
                 <td>{{ risk_data['overall_risk'] * 100 }}%</td>
             </tr>
             <tr>
                 <td>MAX Shares to Buy</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['max_shares'] }}</td>
             </tr>
             <tr>
                 <td>Actual Shares Bought</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['actual_shares'] }}</td>
             </tr>
             <tr>
                 <td>Total Investment Amount</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['investment_total'] }}</td>
             </tr>
         </table>
     </div>
@@ -113,17 +113,17 @@
             <tr>
                 <td>Entry Price</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['entry'] }}</td>
             </tr>
             <tr>
                 <td>Shares</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['actual_shares'] }}</td>
             </tr>
             <tr>
                 <td>Risk (%)</td>
                 <td>&nbsp;</td>
-                <td>%DATA%</td>
+                <td>{{ risk_data['overall_risk'] * 100 }}%</td>
             </tr>
             <tr>
                 <td>Profit Level</td>

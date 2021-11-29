@@ -79,23 +79,31 @@ def close_connection(exception):
 # calculators, summary scripts,
 # and app functions
 
-def update_account_details():
-    pass
+def format_currency(amt):
+    if amt < 0:
+        formatted = "({:,.2f})".format(amt)
+    else:
+        formatted = "{:,.2f}".format(amt)
+    return formatted
+
 
 def add_record():
     pass
 
+
 def edit_record(post_id):
     pass
 
+
 def delete_record(post_id):
     pass
+
 
 def risk_reward_calc(data):
     # account value and risk per trade are hard coded for now
     risk_reward = {
         'account_value': 10000,
-        'risk_per_trade': .01,
+        'risk_per_trade': .02,
         'risk_per_trade_amt': None,
         'entry': data['entry'],
         'stop': data['stop'],
@@ -107,12 +115,18 @@ def risk_reward_calc(data):
     }
 
     # overall risk = risk per share / entry price
-    risk_reward['overall_risk'] = risk_reward['risk_share']\
-        / risk_reward['entry']
+    risk_reward['overall_risk'] = round(risk_reward['risk_share']\
+        / risk_reward['entry'], 3)
 
     # max risk amount per trade (given the account value)
     risk_reward['risk_per_trade_amt'] = risk_reward['account_value']\
         * risk_reward['risk_per_trade']
+
+    risk_reward['max_shares'] = round(risk_reward['risk_per_trade_amt']\
+        / risk_reward['risk_share'])
+
+    risk_reward['investment_total'] = risk_reward['entry']\
+        * risk_reward['actual_shares']
 
     return risk_reward
 
@@ -124,7 +138,7 @@ def report_summary(data):
 
 def get_risk_per_share(entry_price, stop_price):
     risk = float(entry_price) - float(stop_price)
-    return "{:.2f}".format(risk)
+    return format_currency(risk)
 
 
 
