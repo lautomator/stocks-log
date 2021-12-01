@@ -102,7 +102,7 @@ def delete_record(post_id):
 def risk_calc(data):
     # account value and risk per trade are hard coded for now
     risk = {
-        'account_value': 10000,
+        'account_value': 9800,
         'risk_per_trade': .02,
         'risk_per_trade_amt': None,
         'entry': data['entry'],
@@ -141,6 +141,8 @@ def profit_calc(data):
     entry_price = data['entry']
     no_of_shares = data['actual_shares']
     risk_perc = data['overall_risk']
+    r = 1
+    r_max = 5
 
     def price(level, entry_price, risk_perc):
         result = round((risk_perc * level + 1) * entry_price, 2)
@@ -150,17 +152,12 @@ def profit_calc(data):
         result = (price - entry_price) * no_of_shares
         return round(result, 2)
 
-    potential_profits['1r']['price'] = price(1, entry_price, risk_perc)
-    potential_profits['2r']['price'] = price(2, entry_price, risk_perc)
-    potential_profits['3r']['price'] = price(3, entry_price, risk_perc)
-    potential_profits['4r']['price'] = price(4, entry_price, risk_perc)
-    potential_profits['5r']['price'] = price(5, entry_price, risk_perc)
-
-    potential_profits['1r']['pnl'] = price(potential_profits['1r']['price'], entry_price, no_of_shares)
-    potential_profits['2r']['pnl'] = price(potential_profits['2r']['price'], entry_price, no_of_shares)
-    potential_profits['3r']['pnl'] = price(potential_profits['3r']['price'], entry_price, no_of_shares)
-    potential_profits['4r']['pnl'] = price(potential_profits['4r']['price'], entry_price, no_of_shares)
-    potential_profits['5r']['pnl'] = price(potential_profits['5r']['price'], entry_price, no_of_shares)
+    # 1R - 5R or rMAX
+    while (r <= r_max):
+        potential_profits[str(r) + 'r']['price'] = price(r, entry_price, risk_perc)
+        potential_profits[str(r) + 'r']['pnl']\
+        = pnl(potential_profits[str(r) + 'r']['price'], entry_price, no_of_shares)
+        r += 1
 
     return potential_profits
 
