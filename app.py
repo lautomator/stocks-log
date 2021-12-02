@@ -178,9 +178,46 @@ def get_risk_per_share(entry_price, stop_price):
 # main page
 @app.route('/')
 def index():
-    sql = 'select * from stocks_log'
+    opts_order_by = {
+        'Investment': 'investment',
+        'Entry Date': 'date_entered',
+        'Shares': 'shares',
+        'Entry': 'entry',
+        'Stop': 'stop',
+        'Target': 'target',
+        'Risk/Share': 'risk_share',
+        'Exit': 'exit',
+        'Exit Date': 'sell_date',
+        'PnL': 'pnl'
+    }
+
+    opts_order = {
+        'ASC': 'asc',
+        'DESC': 'desc'
+    }
+
+    # handle any ordering options
+    get_options = {
+        'orderby': 'date_entered',
+        'order': 'desc'
+    }
+
+    if request.args.get("submit") == 'update':
+        get_options['orderby'] = request.args.get('orderby')
+        get_options['order'] = request.args.get('order')
+        sql = 'select * from stocks_log order by ' + get_options['orderby']\
+            +' ' + get_options['order']
+    else:
+        sql = 'select * from stocks_log order by date_entered desc'
+
     data = query_db(sql)
-    return render_template('index.html', data=data)
+    return render_template(
+        'index.html',
+        data=data,
+        opts_order_by=opts_order_by,
+        opts_order=opts_order,
+        get_options=get_options
+    )
 
 
 # record detail
