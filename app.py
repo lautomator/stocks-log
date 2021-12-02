@@ -176,7 +176,7 @@ def get_risk_per_share(entry_price, stop_price):
 # VIEWS
 
 # main page
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     opts_order_by = {
         'Investment': 'investment',
@@ -202,9 +202,9 @@ def index():
         'order': 'desc'
     }
 
-    if request.args.get("submit") == 'update':
-        get_options['orderby'] = request.args.get('orderby')
-        get_options['order'] = request.args.get('order')
+    if request.method == 'POST':
+        get_options['orderby'] = request.form['orderby']
+        get_options['order'] = request.form['order']
         sql = 'select * from stocks_log order by ' + get_options['orderby']\
             +' ' + get_options['order']
     else:

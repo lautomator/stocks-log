@@ -46,7 +46,7 @@
 {% endblock %}
 
 {% block footer %}
-    <form method="GET" action="/">
+    <form method="POST" action="/">
         <label>Order By</label>
         <select name="orderby">
             {% for key, val in opts_order_by.items() %}
