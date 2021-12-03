@@ -6,6 +6,8 @@ from flask import request
 from flask import render_template
 import sqlite3
 from flask import g
+import swing_stats_mod
+
 
 app = Flask(__name__)
 
@@ -102,7 +104,7 @@ def delete_record(post_id):
 def risk_calc(data):
     # account value and risk per trade are hard coded for now
     risk = {
-        'account_value': 9800,
+        'account_value': 10000,
         'risk_per_trade': .02,
         'risk_per_trade_amt': None,
         'entry': data['entry'],
@@ -115,18 +117,14 @@ def risk_calc(data):
     }
 
     # overall risk = risk per share / entry price
-    risk['overall_risk'] = round(risk['risk_share']\
-        / risk['entry'], 2)
+    risk['overall_risk'] = round(risk['risk_share'] / risk['entry'], 2)
 
     # max risk amount per trade (given the account value)
-    risk['risk_per_trade_amt'] = risk['account_value']\
-        * risk['risk_per_trade']
+    risk['risk_per_trade_amt'] = risk['account_value'] * risk['risk_per_trade']
 
-    risk['max_shares'] = round(risk['risk_per_trade_amt']\
-        / risk['risk_share'])
+    risk['max_shares'] = round(risk['risk_per_trade_amt'] / risk['risk_share'])
 
-    risk['investment_total'] = round(risk['entry']\
-        * risk['actual_shares'], 2)
+    risk['investment_total'] = round(risk['entry'] * risk['actual_shares'], 2)
     return risk
 
 
@@ -236,20 +234,6 @@ def show_post(post_id):
     )
 
 
-# summary report
-@app.route('/report')
-def report():
-    return render_template('report.html')
-
-
-# export the log
-@app.route('/export')
-def export_log():
-    sql = 'select * from stocks_log order by investment asc'
-    data = query_db(sql)
-    return render_template('export.html', data=data)
-
-
 # ADD a post/record
 @app.route('/add', methods=['GET', 'POST'])
 def add_post():
@@ -323,6 +307,19 @@ def delete_post(post_id):
     return render_template('delete-post.html', post_id=post_id)
 
 
+# summary report
+@app.route('/report')
+def report():
+
+    return render_template('report.html')
+
+
+# export the log
+@app.route('/export')
+def export_log():
+    sql = 'select * from stocks_log order by investment asc'
+    data = query_db(sql)
+    return render_template('export.html', data=data)
 
 
 

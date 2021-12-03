@@ -19,4 +19,17 @@ To stop the server and the virtual environment:
 ## Database
 ref: https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/
 
+### SQLite3 Shell
+Begin by running the virtual environment in the command line shell.
+
+```
+>> cd stocks
+>> . env/bin/activate
+>> sqlite3
+sqlite> .open stocks.db
+sqlite> select * from stocks_log;
+sqlite> <your sql commands>
+sqlite> .exit
+```
+
 
