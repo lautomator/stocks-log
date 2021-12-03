@@ -5,6 +5,15 @@
 {% block content %}
     <h2>Export</h2>
 
-    <p>Export the current log as a CSV file.</p>
+<div class="report-data">
+    <code>Investment, Entry Date, Shares, Entry, Stop, Target, Risk/Share, Exit,
+        Exit Date, PnL<br>
+    {% for r in data %}
+        {{ r['investment'] }}, {{ r['date_entered'] }}, {{ r['shares'] }},
+            {{ r['entry'] }}, {{ r['stop'] }}, {{ r['target'] }}, {{ r['risk_share'] }},
+            {{ r['exit'] }}, {{ r['sell_date'] }}, {{ r['pnl'] }}<br>
+    {% endfor %}
+    </code>
+</div>
 
 {% endblock %}

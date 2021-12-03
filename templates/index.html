@@ -47,7 +47,7 @@
 
 {% block footer %}
     <form method="POST" action="/">
-        <label>Order By</label>
+        <label>Order by</label>
         <select name="orderby">
             {% for key, val in opts_order_by.items() %}
             <option value="{{ val }}"
@@ -58,7 +58,6 @@
             {% endfor %}
         </select>
 
-        <label>Order</label>
         <select name="order">
             {% for key, val in opts_order.items() %}
             <option value="{{ val }}"

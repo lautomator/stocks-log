@@ -125,8 +125,8 @@ def risk_calc(data):
     risk['max_shares'] = round(risk['risk_per_trade_amt']\
         / risk['risk_share'])
 
-    risk['investment_total'] = risk['entry']\
-        * risk['actual_shares']
+    risk['investment_total'] = round(risk['entry']\
+        * risk['actual_shares'], 2)
     return risk
 
 
@@ -243,9 +243,11 @@ def report():
 
 
 # export the log
-@app.route('/export', methods=['GET', 'POST'])
+@app.route('/export')
 def export_log():
-    return render_template('export.html')
+    sql = 'select * from stocks_log order by investment asc'
+    data = query_db(sql)
+    return render_template('export.html', data=data)
 
 
 # ADD a post/record
