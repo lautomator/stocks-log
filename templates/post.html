@@ -5,31 +5,33 @@
 {% block content %}
     <h2>Record Detail</h2>
 
+    <code>Post ID: {{ post_id }}</code>
+
     <div class="details-record-grid">
         <table>
             <tr>
-                <td>Investment</td>
+                <th>Investment</th>
                 <td>{{ data['investment'] }}</td>
             </tr>
-                <td>Entry Date</td>
+                <th>Entry Date</th>
                 <td>{{ data['date_entered'] }}</td>
             <tr>
-                <td>Shares</td>
+                <th>Shares</th>
                 <td>{{ data['shares'] }}</td>
             </tr>
-                <td>Entry</td>
+                <th>Entry</th>
                 <td>{{ data['entry'] }}</td>
             <tr>
-                <td>Stop</td>
+                <th>Stop</th>
                 <td>{{ data['stop'] }}</td>
             </tr>
-                <td>Target</td>
+                <th>Target</th>
                 <td>{{ data['target'] }}</td>
             <tr>
-                <td>Risk/Share</td>
+                <th>Risk/Share</th>
                 <td>{{ data['risk_share'] }}</td>
             </tr>
-                <td>Exit</td>
+                <th>Exit</th>
                 <td>{% if data['exit'] == None %}
                         &ndash;
                     {% else %}
@@ -37,15 +39,15 @@
                     {% endif %}
                 </td>
             <tr>
-                <td>Exit Date</td>
-                <td>{% if data['sell_date'] == None %}
+                <th>Exit Date</th>
+                <td>{% if data['exit_date'] == None %}
                         &ndash;
                     {% else %}
-                        {{ data['sell_date'] }}
+                        {{ data['exit_date'] }}
                     {% endif %}
                     </td>
             <tr>
-                <td>PnL</td>
+                <th>PnL</th>
                 <td>{% if data['pnl'] == None %}
                         &ndash;
                     {% else %}
@@ -61,32 +63,32 @@
 
         <table>
             <tr>
-                <td>Entry Price</td>
+                <th>Entry Price</th>
                 <td>&nbsp;</td>
                 <td>{{ risk_data['entry'] }}</td>
             </tr>
             <tr>
-                <td>Stop</td>
+                <th>Stop</th>
                 <td>&nbsp;</td>
                 <td>{{ risk_data['stop'] }}</td>
             </tr>
             <tr>
-                <td>Risk/Share</td>
+                <th>Risk/Share</th>
                 <td>&nbsp;</td>
                 <td>{{ risk_data['risk_share'] }}</td>
             </tr>
             <tr>
-                <td>Overall Risk</td>
+                <th>Overall Risk</th>
                 <td><em>2.5 - 7%</em></td>
                 <td>{{ risk_data['overall_risk'] * 100 }}%</td>
             </tr>
             <tr>
-                <td>Shares Bought</td>
+                <th>Shares Bought</th>
                 <td>&nbsp;</td>
                 <td>{{ risk_data['actual_shares'] }}</td>
             </tr>
             <tr>
-                <td>Total Investment Amount</td>
+                <th>Total Investment Amount</th>
                 <td>&nbsp;</td>
                 <td>{{ risk_data['investment_total'] }}</td>
             </tr>
@@ -106,27 +108,27 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>1R</td>
+                    <th>1R</th>
                     <td>{{ profit_data['1r']['price'] }}</td>
                     <td>{{ profit_data['1r']['pnl'] }}</td>
                 </tr>
                 <tr>
-                    <td>2R</td>
+                    <th>2R</th>
                     <td>{{ profit_data['2r']['price'] }}</td>
                     <td>{{ profit_data['2r']['pnl'] }}</td>
                 </tr>
                 <tr>
-                    <td>3R</td>
+                    <th>3R</th>
                     <td>{{ profit_data['3r']['price'] }}</td>
                     <td>{{ profit_data['3r']['pnl'] }}</td>
                 </tr>
                 <tr>
-                    <td>4R</td>
+                    <th>4R</th>
                     <td>{{ profit_data['4r']['price'] }}</td>
                     <td>{{ profit_data['4r']['pnl'] }}</td>
                 </tr>
                 <tr>
-                    <td>5R</td>
+                    <th>5R</th>
                     <td>{{ profit_data['5r']['price'] }}</td>
                     <td>{{ profit_data['5r']['pnl'] }}</td>
                 </tr>
@@ -139,24 +141,25 @@
 
         <table>
             <tr>
-                <td>Notes</td>
+                <th>Notes</th>
             </tr>
             <tr>
                 <td>{% if data['notes'] == None %}
-                        <em>no notes entered</em>
+                        &ndash;
                     {% else %}
                         ${{ data['notes'] }}
                     {% endif %}
                 </td>
             </tr>
             <tr>
-                <td>Chart</td>
+                <th>Chart</th>
             </tr>
             <tr>
                 <td>{% if data['chart_url'] == None %}
-                        <em>no chart to display</em>
+                        &ndash;
                     {% else %}
-                        ${{ data['chart_url'] }}
+                        <img src="${{ data['chart_url'] }}"
+                            alt="{{ data['investment'] }}-{{ data['date_entered'] }}">
                     {% endif %}
                 </td>
             </tr>
@@ -164,14 +167,9 @@
 
     </div>
 
-    <ul>
-        <li>Post ID: {{ post_id }}</li>
-    </ul>
 {% endblock %}
 
 {% block footer %}
-    <ul>
-        <li><a href="/edit/{{ post_id }}">edit this record</a></li>
-        <li><a href="/delete/{{ post_id }}">delete this record</a></li>
-    </ul>
+    <p><a href="/edit/{{ post_id }}">edit this record</a></p>
+    <p><a href="/delete/{{ post_id }}">delete this record</a></p>
 {% endblock %}

@@ -5,9 +5,9 @@
 {% block content %}
     <h2>Edit Record</h2>
 
-    <p>Form with all of the record details here: {{ post_id }}</p>
+    <code>Post ID: {{ post_id }}</code>
 
-    <form method="POST">
+    <form method="POST" action="/review-edit/{{ post_id }}">
         <div>
             <label>Investment</label>
             <input type="text" name="investment"
@@ -46,14 +46,14 @@
 
         <div>
             <label>Exit</label>
-            <input type="number" name="exit_price" min="0" step="0.01"
+            <input type="number" name="exit" min="0" step="0.01"
                 value="{{ data['exit'] }}">
         </div>
 
         <div>
             <label>Exit Date</label>
             <input type="date" name="exit_date"
-                value="{{ data['sell_date'] }}">
+                value="{{ data['exit_date'] }}">
         </div>
 
         <div>
@@ -66,6 +66,10 @@
             <input type="text" name="chart_url"
                 value="{{ data['chart_url'] }}">
         </div>
+
+        <!-- hidden fields -->
+        <input type="hidden" name="risk_share" value="{{ data['risk_share'] }}">
+        <input type="hidden" name="pnl" value="{{ data['risk_share'] }}">
 
         <div>
             <input type="submit" name="submit" value="update record">

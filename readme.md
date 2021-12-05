@@ -3,6 +3,8 @@
 ref: https://flask.palletsprojects.com/en/2.0.x/
 ref: https://jinja.palletsprojects.com/en/3.0.x/templates/
 
+App is intended to run locally only. This is not meant for a server or the public.
+
 
 
 ## Running the App

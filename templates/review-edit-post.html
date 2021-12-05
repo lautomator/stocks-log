@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Add a Record{% endblock %}
+{% block title %}Edit a Record{% endblock %}
 
 {% block content %}
 
-<h2>Review New Record</h2>
+<h2>Review Record Edits</h2>
 
-{% if has_reviewed %}
 <ul>
     <li>Investment: {{ post_data['investment'] }}</li>
     <li>Entry Date: {{ post_data['entry_date'] }}</li>
@@ -14,10 +13,13 @@
     <li>Entry: {{ post_data['entry_price'] }}</li>
     <li>Stop: {{ post_data['stop_price'] }}</li>
     <li>Target: {{ post_data['target'] }}</li>
-    <li>Risk/Share: {{ post_data['risk_share'] }}</li>
+    <li>Exit: {{ post_data['exit'] }}</li>
+    <li>Exit Date: {{ post_data['exit_date'] }}</li>
+    <li>Notes: {{ post_data['notes'] }}</li>
+    <li>Chart URL: {{ post_data['chart_url'] }}</li>
 </ul>
 
-<form method="POST" action="/confirm">
+<form method="POST" action="/confirm-update">
     <input type="hidden" name="investment" value="{{ post_data['investment'] }}">
     <input type="hidden" name="entry_date" value="{{ post_data['entry_date'] }}">
     <input type="hidden" name="shares" value="{{ post_data['shares'] }}">
@@ -25,13 +27,16 @@
     <input type="hidden" name="stop_price" value="{{ post_data['stop_price'] }}">
     <input type="hidden" name="target" value="{{ post_data['target'] }}">
     <input type="hidden" name="risk_share" value="{{ post_data['risk_share'] }}">
+    <input type="hidden" name="exit" value="{{ post_data['exit'] }}">
+    <input type="hidden" name="exit_date" value="{{ post_data['exit_date'] }}">
+    <input type="hidden" name="notes" value="{{ post_data['notes'] }}">
+    <input type="hidden" name="chart_url" value="{{ post_data['chart_url'] }}">
+    <input type="hidden" name="pnl" value="{{ post_data['pnl'] }}">
 
     <div>
         <input type="submit" name="submit" value="add record">
     </div>
 </form>
-
-{% endif %}
 
 {% endblock %}
 

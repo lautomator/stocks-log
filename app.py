@@ -46,7 +46,8 @@ def insert_db(conn, data):
     sql = ''' INSERT INTO stocks_log (
         investment,
         date_entered,
-        shares,entry,
+        shares,
+        entry,
         stop,
         target,
         risk_share
@@ -59,13 +60,46 @@ def insert_db(conn, data):
        data['entry_price'],
        data['stop_price'],
        data['target'],
-       data['risk_per_share']
+       data['risk_share']
     )
 
     cur = conn.cursor()
     cur.execute(sql, values)
     conn.commit()
     cur.close()
+
+
+def update_db(conn, data):
+    sql = ''' UPDATE stocks_log (
+        investment,
+        date_entered,
+        shares,
+        entry,
+        stop,
+        target,
+        risk_share,
+        exit,
+        exit_date,
+        pnl,
+        notes,
+        chart
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); '''
+
+    values = (
+       data['investment'],
+       data['entry_date'],
+       data['shares'],
+       data['entry_price'],
+       data['stop_price'],
+       data['target'],
+       data['risk_share']
+    )
+
+    cur = conn.cursor()
+    cur.execute(sql, values)
+    conn.commit()
+    cur.close()
+
 
 def delete_db_record(conn, post_id):
     sql = 'DELETE FROM stocks_log WHERE id=' + str(post_id)
@@ -148,14 +182,14 @@ def profit_calc(data):
 
 
 def get_risk_per_share(entry_price, stop_price):
-    risk = float(entry_price) - float(stop_price)
+    risk = abs(float(entry_price) - float(stop_price))
     return format_currency(risk)
 
 
 # ------------------------------
 # VIEWS
 
-# main page
+# main page/index of posts
 @app.route('/', methods=['GET', 'POST'])
 def index():
     opts_order_by = {
@@ -167,7 +201,7 @@ def index():
         'Target': 'target',
         'Risk/Share': 'risk_share',
         'Exit': 'exit',
-        'Exit Date': 'sell_date',
+        'Exit Date': 'exit_date',
         'PnL': 'pnl'
     }
 
@@ -216,13 +250,13 @@ def show_post(post_id):
     )
 
 
-# ADD a post/record
+# ADD a new post/record
 @app.route('/add', methods=['GET', 'POST'])
 def add_post():
     return render_template('add-post.html')
 
 
-# REVIEW a post/record
+# REVIEW a new post/record
 @app.route('/review', methods=['GET', 'POST'])
 def review_post():
     has_reviewed = False
@@ -239,7 +273,7 @@ def review_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['risk_per_share'] = get_risk_per_share(
+        post_data['risk_share'] = get_risk_per_share(
             post_data['entry_price'],
             post_data['stop_price'])
 
@@ -250,7 +284,7 @@ def review_post():
     )
 
 
-# CONFIRM a post/record
+# CONFIRM a new post/record
 @app.route('/confirm', methods=['GET', 'POST'])
 def confirm_post():
     post_data = {}
@@ -263,7 +297,7 @@ def confirm_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['risk_per_share'] = request.form['risk_per_share']
+        post_data['risk_share'] = request.form['risk_share']
 
         # SQL instertion into DB
         conn = get_db()
@@ -275,8 +309,8 @@ def confirm_post():
     )
 
 
-# edit a post/record
-@app.route('/edit/<int:post_id>', methods=['GET', 'POST'])
+# edit/update a post/record
+@app.route('/edit/<int:post_id>')
 def edit_post(post_id):
     sql = 'select * from stocks_log where id=?'
     data = query_db(sql, [post_id], one=True)
@@ -285,6 +319,39 @@ def edit_post(post_id):
         post_id=post_id,
         data=data,
     )
+
+
+# review a post/record update action
+@app.route('/review-edit/<int:post_id>', methods=['GET', 'POST'])
+def review_update(post_id):
+    post_data = {}
+
+    if request.method == 'POST':
+        # all of the POST data
+        post_data['investment'] = request.form['investment']
+        post_data['entry_date'] = request.form['entry_date']
+        post_data['shares'] = request.form['shares']
+        post_data['entry_price'] = request.form['entry_price']
+        post_data['stop_price'] = request.form['stop_price']
+        post_data['target'] = request.form['target']
+        post_data['risk_share'] = request.form['risk_share']
+        post_data['exit'] = request.form['exit']
+        post_data['exit_date'] = request.form['exit_date']
+        post_data['notes'] = request.form['notes']
+        post_data['chart_url'] = request.form['chart_url']
+        post_data['pnl'] = request.form['pnl']
+
+    return render_template(
+        'review-edit-post.html',
+        post_id=post_id,
+        post_data=post_data,
+    )
+
+
+# confirm a post/record update action
+@app.route('/confirm-update/', methods=['GET', 'POST'])
+def confirm_update(post_id):
+    pass
 
 
 # delete a post/record

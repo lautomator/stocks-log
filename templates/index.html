@@ -33,8 +33,8 @@
                     <td>{{ r['risk_share'] }}</td>
                     <td>{% if r['exit'] == None %} &ndash; {% else %}
                         {{ r['exit'] }} {% endif %}</td>
-                    <td>{% if r['sell_date'] == None %} &ndash; {% else %}
-                        {{ r['sell_date'] }} {% endif %}</td>
+                    <td>{% if r['exit_date'] == None %} &ndash; {% else %}
+                        {{ r['exit_date'] }} {% endif %}</td>
                     <td>{% if r['pnl'] == None %} &ndash; {% else %}
                         {{ r['pnl'] }} {% endif %}</td>
                 </tr>

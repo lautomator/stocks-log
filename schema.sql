@@ -10,7 +10,7 @@ CREATE TABLE stocks_log (
     target DECIMAL(8,2),
     risk_share DECIMAL(8,2),
     exit DECIMAL(8,2),
-    sell_date TIMESTAMP,
+    exit_date TIMESTAMP,
     pnl DECIMAL(8,2),
     notes TEXT,
     chart_url VARCHAR(255)
