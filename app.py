@@ -12,15 +12,10 @@ import swing_stats_mod
 app = Flask(__name__)
 
 # ------------------------------
-# APP DATA
-# change as needed
-ACCOUNT_VALUE = 10000
-MAX_RISK_PER_TRADE = .02
-DATABASE = 'stocks.db'
-
-# ------------------------------
 # DATABASE OPERATIONS
 # ref: https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/
+
+DATABASE = 'stocks.db'
 
 # ONLY TO BE USED FOR INITIAL OR YEARLY SETUP
 def init_db():
@@ -104,25 +99,17 @@ def format_currency(amt):
 def risk_calc(data):
     # account value and risk per trade are hard coded for now
     risk = {
-        'account_value': ACCOUNT_VALUE,
-        'risk_per_trade': MAX_RISK_PER_TRADE,
         'risk_per_trade_amt': None,
         'entry': data['entry'],
         'stop': data['stop'],
         'risk_share': data['risk_share'],
         'overall_risk': None,
-        'max_shares': None,
         'actual_shares': data['shares'],
         'investment_total': None
     }
 
     # overall risk = risk per share / entry price
     risk['overall_risk'] = round(risk['risk_share'] / risk['entry'], 2)
-
-    # max risk amount per trade (given the account value)
-    risk['risk_per_trade_amt'] = risk['account_value'] * risk['risk_per_trade']
-
-    risk['max_shares'] = round(risk['risk_per_trade_amt'] / risk['risk_share'])
 
     risk['investment_total'] = round(risk['entry'] * risk['actual_shares'], 2)
     return risk

@@ -13,43 +13,45 @@
             </tr>
                 <td>Entry Date</td>
                 <td>{{ data['date_entered'] }}</td>
-            </tr>
+            <tr>
                 <td>Shares</td>
                 <td>{{ data['shares'] }}</td>
             </tr>
                 <td>Entry</td>
                 <td>{{ data['entry'] }}</td>
-            </tr>
+            <tr>
                 <td>Stop</td>
                 <td>{{ data['stop'] }}</td>
             </tr>
                 <td>Target</td>
                 <td>{{ data['target'] }}</td>
-            </tr>
+            <tr>
                 <td>Risk/Share</td>
                 <td>{{ data['risk_share'] }}</td>
             </tr>
                 <td>Exit</td>
-                <td>{% if data['exit'] == None %} &ndash; {% else %}
-                        ${{ data['exit'] }} {% endif %}</td>
-            </tr>
+                <td>{% if data['exit'] == None %}
+                        &ndash;
+                    {% else %}
+                        ${{ data['exit'] }}
+                    {% endif %}
+                </td>
+            <tr>
                 <td>Exit Date</td>
-                <td>{% if data['sell_date'] == None %} &ndash; {% else %}
-                        {{ data['sell_date'] }} {% endif %}</td>
-            </tr>
+                <td>{% if data['sell_date'] == None %}
+                        &ndash;
+                    {% else %}
+                        {{ data['sell_date'] }}
+                    {% endif %}
+                    </td>
+            <tr>
                 <td>PnL</td>
-                <td>{% if data['pnl'] == None %} &ndash; {% else %}
-                        ${{ data['pnl'] }} {% endif %}</td>
-            </tr>
-            </tr>
-                <td>Notes</td>
-                <td>{% if data['notes'] == None %} &ndash; {% else %}
-                        ${{ data['notes'] }} {% endif %}</td>
-            </tr>
-            </tr>
-                <td>Chart</td>
-                <td>{% if data['chart_url'] == None %} &ndash; {% else %}
-                        ${{ data['chart_url'] }} {% endif %}</td>
+                <td>{% if data['pnl'] == None %}
+                        &ndash;
+                    {% else %}
+                        ${{ data['pnl'] }}
+                    {% endif %}
+                </td>
             </tr>
         </table>
     </div>
@@ -58,16 +60,6 @@
         <h2>Risk Assessment</h2>
 
         <table>
-            <tr>
-                <td>Total Account Value (cash)</td>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['account_value'] }}</td>
-            </tr>
-            <tr>
-                <td>Amount to risk on each trade</td>
-                <td><em>{{ risk_data['risk_per_trade'] * 100 }}%</em></td>
-                <td>{{ risk_data['risk_per_trade_amt'] }}</td>
-            </tr>
             <tr>
                 <td>Entry Price</td>
                 <td>&nbsp;</td>
@@ -89,12 +81,7 @@
                 <td>{{ risk_data['overall_risk'] * 100 }}%</td>
             </tr>
             <tr>
-                <td>MAX Shares to Buy</td>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['max_shares'] }}</td>
-            </tr>
-            <tr>
-                <td>Actual Shares Bought</td>
+                <td>Shares Bought</td>
                 <td>&nbsp;</td>
                 <td>{{ risk_data['actual_shares'] }}</td>
             </tr>
@@ -145,6 +132,36 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div>
+        <h2>Notes &amp; Chart</h2>
+
+        <table>
+            <tr>
+                <td>Notes</td>
+            </tr>
+            <tr>
+                <td>{% if data['notes'] == None %}
+                        <em>no notes entered</em>
+                    {% else %}
+                        ${{ data['notes'] }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Chart</td>
+            </tr>
+            <tr>
+                <td>{% if data['chart_url'] == None %}
+                        <em>no chart to display</em>
+                    {% else %}
+                        ${{ data['chart_url'] }}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
     </div>
 
     <ul>
