@@ -12,10 +12,15 @@ import swing_stats_mod
 app = Flask(__name__)
 
 # ------------------------------
+# APP DATA
+# change as needed
+ACCOUNT_VALUE = 10000
+MAX_RISK_PER_TRADE = .02
+DATABASE = 'stocks.db'
+
+# ------------------------------
 # DATABASE OPERATIONS
 # ref: https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/
-
-DATABASE = 'stocks.db'
 
 # ONLY TO BE USED FOR INITIAL OR YEARLY SETUP
 def init_db():
@@ -67,6 +72,13 @@ def insert_db(conn, data):
     conn.commit()
     cur.close()
 
+def delete_db_record(conn, post_id):
+    sql = 'DELETE FROM stocks_log WHERE id=' + str(post_id)
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+    cur.close()
+
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -89,23 +101,11 @@ def format_currency(amt):
     return formatted
 
 
-def add_record():
-    pass
-
-
-def edit_record(post_id):
-    pass
-
-
-def delete_record(post_id):
-    pass
-
-
 def risk_calc(data):
     # account value and risk per trade are hard coded for now
     risk = {
-        'account_value': 10000,
-        'risk_per_trade': .02,
+        'account_value': ACCOUNT_VALUE,
+        'risk_per_trade': MAX_RISK_PER_TRADE,
         'risk_per_trade_amt': None,
         'entry': data['entry'],
         'stop': data['stop'],
@@ -160,14 +160,9 @@ def profit_calc(data):
     return potential_profits
 
 
-def report_summary(data):
-    pass
-
-
 def get_risk_per_share(entry_price, stop_price):
     risk = float(entry_price) - float(stop_price)
     return format_currency(risk)
-
 
 
 # ------------------------------
@@ -221,7 +216,7 @@ def index():
 # record detail
 @app.route('/post/<int:post_id>')
 def show_post(post_id):
-    sql = 'select * from stocks_log where id = ?'
+    sql = 'select * from stocks_log where id=?'
     data = query_db(sql, [post_id], one=True)
     risk_data = risk_calc(data)
     profit_data = profit_calc(risk_data)
@@ -284,8 +279,6 @@ def confirm_post():
         post_data['risk_per_share'] = request.form['risk_per_share']
 
         # SQL instertion into DB
-        # if response from DB is success, success = True
-        # else report any info for debugging
         conn = get_db()
         insert_db(conn, post_data)
 
@@ -298,13 +291,29 @@ def confirm_post():
 # edit a post/record
 @app.route('/edit/<int:post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
-    return render_template('edit-post.html', post_id=post_id)
+    sql = 'select * from stocks_log where id=?'
+    data = query_db(sql, [post_id], one=True)
+    return render_template(
+        'edit-post.html',
+        post_id=post_id,
+        data=data,
+    )
 
 
 # delete a post/record
 @app.route('/delete/<int:post_id>', methods=['GET', 'POST'])
 def delete_post(post_id):
     return render_template('delete-post.html', post_id=post_id)
+
+
+# CONFIRM deletion
+@app.route('/confirm-delete', methods=['GET', 'POST'])
+def confirm_delete():
+    if request.method == 'POST':
+        post_id = request.form['delete_record']
+        conn = get_db()
+        delete_db_record(conn, post_id)
+    return render_template('confirm-delete.html', post_id=post_id)
 
 
 # summary report

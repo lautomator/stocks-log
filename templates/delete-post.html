@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Delete Record{% endblock %}
+{% block title %}Delete a Record{% endblock %}
 
 {% block content %}
-    <h2>Delete Record</h2>
+    <h2>Delete a Record</h2>
 
     <p>The record details here and a delete warning message: {{ post_id }}</p>
 
-    <form method="POST">
+    <form method="POST" action="/confirm-delete">
         <div>
-            <input type="checkbox" name="delete_record"> Delete this record.
+            <input type="checkbox" name="delete_record" value="{{ post_id }}">
+                Delete this record.
         </div>
 
         <div>
