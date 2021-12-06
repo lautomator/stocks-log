@@ -19,7 +19,10 @@
     <li>Chart URL: {{ post_data['chart_url'] }}</li>
 </ul>
 
-<form method="POST" action="/confirm-update">
+{{ post_id }}
+
+<form method="POST" action="/confirm-edit">
+    <input type="hidden" name="post_id" value="{{ post_id }}">
     <input type="hidden" name="investment" value="{{ post_data['investment'] }}">
     <input type="hidden" name="entry_date" value="{{ post_data['entry_date'] }}">
     <input type="hidden" name="shares" value="{{ post_data['shares'] }}">
@@ -31,12 +34,21 @@
     <input type="hidden" name="exit_date" value="{{ post_data['exit_date'] }}">
     <input type="hidden" name="notes" value="{{ post_data['notes'] }}">
     <input type="hidden" name="chart_url" value="{{ post_data['chart_url'] }}">
-    <input type="hidden" name="pnl" value="{{ post_data['pnl'] }}">
 
     <div>
-        <input type="submit" name="submit" value="add record">
+        <input type="submit" name="submit" value="update record">
     </div>
 </form>
+
+<button id="go_back">cancel</button>
+<script>
+    (function () {
+        var go_back_btn = document.getElementById("go_back");
+        go_back_btn.addEventListener('click', function(e) {
+            window.location.assign("/post/{{ post_id }}");
+        });
+    }());
+</script>
 
 {% endblock %}
 

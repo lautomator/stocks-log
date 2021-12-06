@@ -70,20 +70,20 @@ def insert_db(conn, data):
 
 
 def update_db(conn, data):
-    sql = ''' UPDATE stocks_log (
-        investment,
-        date_entered,
-        shares,
-        entry,
-        stop,
-        target,
-        risk_share,
-        exit,
-        exit_date,
-        pnl,
-        notes,
-        chart
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); '''
+    sql = ''' UPDATE stocks_log
+        SET investment = ?,
+            date_entered = ?,
+            shares = ?,
+            entry = ?,
+            stop = ?,
+            target = ?,
+            risk_share = ?,
+            exit = ?,
+            exit_date = ?,
+            pnl = ?,
+            notes = ?,
+            chart_url = ?
+        WHERE id = ?; '''
 
     values = (
        data['investment'],
@@ -92,7 +92,13 @@ def update_db(conn, data):
        data['entry_price'],
        data['stop_price'],
        data['target'],
-       data['risk_share']
+       data['risk_share'],
+       data['exit'],
+       data['exit_date'],
+       data['pnl'],
+       data['notes'],
+       data['chart_url'],
+       data['post_id']
     )
 
     cur = conn.cursor()
@@ -184,6 +190,11 @@ def profit_calc(data):
 def get_risk_per_share(entry_price, stop_price):
     risk = abs(float(entry_price) - float(stop_price))
     return format_currency(risk)
+
+
+def final_pnl(exit_price, entry_price, no_of_shares):
+    result = (exit_price - entry_price) * no_of_shares
+    return round(result, 2)
 
 
 # ------------------------------
@@ -339,7 +350,6 @@ def review_update(post_id):
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
-        post_data['pnl'] = request.form['pnl']
 
     return render_template(
         'review-edit-post.html',
@@ -349,9 +359,37 @@ def review_update(post_id):
 
 
 # confirm a post/record update action
-@app.route('/confirm-update/', methods=['GET', 'POST'])
-def confirm_update(post_id):
-    pass
+@app.route('/confirm-edit', methods=['GET', 'POST'])
+def confirm_update():
+    post_data = {}
+
+    if request.method == 'POST':
+        # all of the POST data
+        post_data['post_id'] = request.form['post_id']
+        post_data['investment'] = request.form['investment']
+        post_data['entry_date'] = request.form['entry_date']
+        post_data['shares'] = request.form['shares']
+        post_data['entry_price'] = request.form['entry_price']
+        post_data['stop_price'] = request.form['stop_price']
+        post_data['target'] = request.form['target']
+        post_data['risk_share'] = request.form['risk_share']
+        post_data['exit'] = request.form['exit']
+        post_data['exit_date'] = request.form['exit_date']
+        post_data['notes'] = request.form['notes']
+        post_data['chart_url'] = request.form['chart_url']
+        post_data['pnl'] = final_pnl(
+            float(post_data['exit']),
+            float(post_data['entry_price']),
+            int(post_data['shares'])
+        )
+
+    conn = get_db()
+    update_db(conn, post_data)
+
+    return render_template(
+        'confirm-edit.html',
+        post_data=post_data
+    )
 
 
 # delete a post/record
