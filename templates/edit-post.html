@@ -5,8 +5,6 @@
 {% block content %}
     <h2>Edit Record</h2>
 
-    <code>Post ID: {{ post_id }}</code>
-
     <form method="POST" action="/review-edit/{{ post_id }}">
         <div>
             <label>Investment</label>
@@ -69,6 +67,7 @@
 
         <!-- hidden fields -->
         <input type="hidden" name="risk_share" value="{{ data['risk_share'] }}">
+        <input type="hidden" name="pnl" value="{{ data['pnl'] }}">
 
         <div>
             <input type="submit" name="submit" value="review updates">

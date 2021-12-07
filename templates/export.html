@@ -11,7 +11,8 @@
     {% for r in data %}
         {{ r['investment'] }}, {{ r['date_entered'] }}, {{ r['shares'] }},
             {{ r['entry'] }}, {{ r['stop'] }}, {{ r['target'] }}, {{ r['risk_share'] }},
-            {{ r['exit'] }}, {{ r['exit_date'] }}, {{ r['pnl'] }}<br>
+            {{ r['exit'] }}, {{ r['exit_date'] }}, {{ r['pnl'] }}, {{ r['chart_url'] }},
+            {{ r['notes'] }}<br>
     {% endfor %}
     </code>
 </div>

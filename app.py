@@ -254,7 +254,7 @@ def show_post(post_id):
     profit_data = profit_calc(risk_data)
     has_chart = False
 
-    if data['chart_url'] != 'None' or '':
+    if data['chart_url'] is not None:
         has_chart = True
 
     return render_template(
@@ -356,6 +356,7 @@ def review_update(post_id):
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
+        post_data['pnl'] = request.form['pnl']
 
     return render_template(
         'review-edit-post.html',
@@ -383,11 +384,14 @@ def confirm_update():
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
-        post_data['pnl'] = final_pnl(
-            float(post_data['exit']),
-            float(post_data['entry_price']),
-            int(post_data['shares'])
-        )
+        post_data['pnl'] = request.form['pnl']
+
+        if post_data['exit'] != None:
+            post_data['pnl'] = final_pnl(
+                float(post_data['exit']),
+                float(post_data['entry_price']),
+                int(post_data['shares'])
+            )
 
     conn = get_db()
     update_db(conn, post_data)
@@ -427,6 +431,3 @@ def export_log():
     sql = 'select * from stocks_log order by investment asc'
     data = query_db(sql)
     return render_template('export.html', data=data)
-
-
-

@@ -5,8 +5,7 @@
 {% block content %}
     <h2>Edit a Record</h2>
 
-    <p>Record {{ post_id }} updated.</p>
-
-    {{ post_data }}
+    <p><a href="/post/{{ post_data['post_id'] }}">{{ post_data['investment'] }}
+        -{{ post_data['entry_date'] }}</a> has been updated.</p>
 
 {% endblock %}

@@ -5,8 +5,6 @@
 {% block content %}
     <h2>Record Detail</h2>
 
-    <code>Post ID: {{ post_id }}</code>
-
     <div class="details-record-grid">
         <table>
             <tr>
@@ -35,7 +33,7 @@
                 <td>{% if data['exit'] == None %}
                         &ndash;
                     {% else %}
-                        ${{ data['exit'] }}
+                        {{ data['exit'] }}
                     {% endif %}
                 </td>
             <tr>
@@ -51,7 +49,7 @@
                 <td>{% if data['pnl'] == None %}
                         &ndash;
                     {% else %}
-                        ${{ data['pnl'] }}
+                        {{ data['pnl'] }}
                     {% endif %}
                 </td>
             </tr>
@@ -156,10 +154,10 @@
             </tr>
             <tr>
                 <td>{% if has_chart %}
-                        <img src="{{ data['chart_url'] }}"
-                            alt="{{ data['investment'] }}-{{ data['date_entered'] }}">
+                    <a href="{{ data['chart_url'] }}" target="_blank"
+                        rel="noopener">view the chart</a>
                     {% else %}
-                        &ndash;
+                        <em>no chart available</em>
                     {% endif %}
                 </td>
             </tr>
