@@ -38,17 +38,18 @@
         <input type="submit" name="submit" value="update record">
     </div>
 </form>
+{% endblock %}
 
+{% block footer %}
 <button id="go_back">cancel</button>
 <script>
     (function () {
         var go_back_btn = document.getElementById("go_back");
-        go_back_btn.addEventListener('click', function(e) {
+        go_back_btn.addEventListener('click', function() {
             window.location.assign("/post/{{ post_id }}");
         });
     }());
 </script>
-
 {% endblock %}
 
 

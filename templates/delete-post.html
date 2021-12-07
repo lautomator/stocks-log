@@ -18,11 +18,14 @@
             <input type="submit" name="delete" value="delete">
         </div>
     </form>
+{% endblock %}
+
+{% block footer %}
     <button id="go_back">go back</button>
     <script>
         (function () {
             var go_back_btn = document.getElementById("go_back");
-            go_back_btn.addEventListener('click', function(e) {
+            go_back_btn.addEventListener('click', function() {
                 window.location.assign("/post/{{ post_id }}");
             });
         }());

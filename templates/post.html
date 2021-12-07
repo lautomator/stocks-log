@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Record Detail{% endblock %}
+{% block title %}Record Details{% endblock %}
 
 {% block content %}
-    <h2>Record Detail</h2>
+    <h2>Record Details</h2>
 
     <div class="details-record-grid">
         <table>
@@ -56,8 +56,8 @@
         </table>
     </div>
 
-    <div class="risk-profits-grid">
-        <h2>Risk Assessment</h2>
+    <div class="details-record-grid">
+        <h3>Risk Assessment</h3>
 
         <table>
             <tr>
@@ -93,8 +93,8 @@
         </table>
     </div>
 
-    <div class="risk-profits-grid">
-        <h2>Potential Profits</h2>
+    <div class="details-record-grid">
+        <h3>Potential Profits</h3>
 
         <table>
             <thead>
@@ -135,7 +135,7 @@
     </div>
 
     <div>
-        <h2>Notes &amp; Chart</h2>
+        <h3>Notes &amp; Chart</h3>
 
         <table>
             <tr>
@@ -164,10 +164,25 @@
         </table>
 
     </div>
-
 {% endblock %}
 
 {% block footer %}
-    <p><a href="/edit/{{ post_id }}">edit this record</a></p>
-    <p><a href="/delete/{{ post_id }}">delete this record</a></p>
+    <button id="edit_a_record">edit this record</button>
+    <button id="delete_a_record">delete this record</button>
+
+    <script>
+        (function () {
+            var edit_btn = document.getElementById("edit_a_record");
+            var delete_btn = document.getElementById("delete_a_record");
+
+            edit_btn.addEventListener('click', function() {
+                window.location.assign("/edit/{{ post_id }}");
+            });
+
+            delete_btn.addEventListener('click', function() {
+                window.location.assign("/delete/{{ post_id }}");
+            });
+        }());
+
+    </script>
 {% endblock %}

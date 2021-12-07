@@ -200,6 +200,10 @@ def final_pnl(exit_price, entry_price, no_of_shares):
 # ------------------------------
 # VIEWS
 
+# static files
+# @app.route('/static')
+# def index():
+
 # main page/index of posts
 @app.route('/', methods=['GET', 'POST'])
 def index():

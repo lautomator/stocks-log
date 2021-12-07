@@ -3,26 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="static/style.css" /> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <title>{% block title %}{% endblock %} / Stocks Log</title>
 </head>
 <body>
-    <header>
-        <h1>Stocks Log</h1>
+    <div class="container">
+        <header>
+            <div class="title-wrapper">
+                <h1>Stocks Log</h1>
+            </div>
 
-        <nav>
-            <ul>
-                <li><a href="/">main</a></li>
-                <li><a href="/report">report</a></li>
-                <li><a href="/export">export</a></li>
-                <li><a href="/add">add a record</a></li>
-            </ul>
-        </nav>
-    </header>
+            <div class="nav-wrapper">
+                <nav>
+                    <ul>
+                        <li><a href="/">main</a></li>
+                        <li><a href="/report">report</a></li>
+                        <li><a href="/export">export</a></li>
+                        <li><a href="/add">add a record</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-    <div id="content">{% block content %}{% endblock %}</div>
+        <div class="content-wrapper">{% block content %}{% endblock %}</div>
 
-    <footer>{% block footer %}{% endblock %}</footer>
-
+        <footer>{% block footer %}{% endblock %}</footer>
+    </div><!-- /container -->
 </body>
 </html>
