@@ -3,3 +3,4 @@ env
 ref
 .DS_store
 stocks.db
+charts

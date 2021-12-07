@@ -252,12 +252,18 @@ def show_post(post_id):
     data = query_db(sql, [post_id], one=True)
     risk_data = risk_calc(data)
     profit_data = profit_calc(risk_data)
+    has_chart = False
+
+    if data['chart_url'] != 'None' or '':
+        has_chart = True
+
     return render_template(
         'post.html',
         post_id=post_id,
         data=data,
         risk_data=risk_data,
-        profit_data=profit_data
+        profit_data=profit_data,
+        has_chart=has_chart
     )
 
 

@@ -147,7 +147,7 @@
                 <td>{% if data['notes'] == None %}
                         &ndash;
                     {% else %}
-                        ${{ data['notes'] }}
+                        {{ data['notes'] }}
                     {% endif %}
                 </td>
             </tr>
@@ -155,12 +155,11 @@
                 <th>Chart</th>
             </tr>
             <tr>
-                <td>{% if data['chart_url'] == None %}
-                        &ndash;
-                    {% else %}
-                        <p>{{ data['chart_url'] }}</p>
+                <td>{% if has_chart %}
                         <img src="{{ data['chart_url'] }}"
                             alt="{{ data['investment'] }}-{{ data['date_entered'] }}">
+                    {% else %}
+                        &ndash;
                     {% endif %}
                 </td>
             </tr>
