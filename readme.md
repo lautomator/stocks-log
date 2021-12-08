@@ -34,4 +34,7 @@ sqlite> <your sql commands>
 sqlite> .exit
 ```
 
+## Development
+sass --watch scss/style.scss style.css
+
 
