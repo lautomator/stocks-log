@@ -9,6 +9,7 @@
         <table>
             <thead>
                 <tr>
+                    <th class="index">#</th>
                     <th>Investment</th>
                     <th>Entry Date</th>
                     <th>Shares</th>
@@ -23,8 +24,14 @@
             </thead>
             <tbody>
             {% for r in data %}
+                {% if loop.index % 2 == 0 %}
                 <tr>
-                    <td><a href="/post/{{ r['id'] }}">{{ r['investment'] }}</a></td>
+                {% else %}
+                <tr class="odd-row">
+                {% endif %}
+                    <td class="index">{{ loop.index }}</td>
+                    <td class="investment"><a href="/post/{{ r['id'] }}">
+                        {{ r['investment'] }}</a></td>
                     <td>{{ r['date_entered'] }}</td>
                     <td>{{ r['shares'] }}</td>
                     <td>{{ r['entry'] }}</td>

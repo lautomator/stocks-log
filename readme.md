@@ -35,6 +35,9 @@ sqlite> .exit
 ```
 
 ## Development
-sass --watch scss/style.scss style.css
+```
+>> cd static
+>> sass --watch style.scss style.css
+```
 
 
