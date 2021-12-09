@@ -1,16 +1,23 @@
 // COLORS
 $wht: #ffffff;
 $lgt_gry: #f5f5f5;
+$med_lgt_gry: #dcdcdc;
 $med_gry: #a0a0a0;
 $drk_gry: #202020;
+$profit_green: #4c9900;
+$loss_red: #cc0000;
+$blue: #004c99;
+
 
 // SIZES
 $cont_wide: 900px;
 $slug: 30px;
-$slug_half: 15px;
+$slug_05: 15px;
+$slug_2: 60px;
+$slug_3: 90px;
+$slug_4: 120px;
 
 // TYPOGRAPHY
-// $main_font: "Lucida Console", monospace;
 $main_font: "Arial", sans-serif;
 $main_font_size: 15px;
 $main_font_line_height: 30px;
@@ -41,9 +48,13 @@ body {
         width: $cont_wide;
 
         a {
-            // border-bottom: 1px dashed $med_gry;
             color: $drk_gry;
             text-decoration: none;
+            transition: opacity 0.5s;
+
+            &:hover {
+                opacity: 0.5;
+            }
         }
 
         h1, h2, h3, h4 {
@@ -57,18 +68,72 @@ body {
             font-family: $header_font;
         }
 
+        button,
+        select,
+        input[type="submit"] {
+            background-color: $blue;
+            border: 0;
+            color: $wht;
+            cursor: pointer;
+            height: $slug;
+            width: $slug_4;
+        }
+
+        button,
+        select {
+            padding: 0 5px;
+        }
+
+        header {
+            text-align: center;
+
+            .title-wrapper {
+                height: $slug_2;
+                line-height: $slug_2;
+            }
+
+            .nav-wrapper {
+                border-bottom: 1px solid $med_gry;
+                nav {
+                    ul {
+                        list-style-type: none;
+
+                        li {
+                            display: inline-block;
+                            font-weight: bold;
+                            padding: 0 $slug_05;
+
+                            a {
+                                // border: 1px dashed $med_gry;
+                                padding: 4px 6px 5px 4px;
+                                // transition: background-color 0.5s;
+                                color: $blue;
+
+                                // &:hover {
+                                //     background-color: $med_gry;
+                                //     color: $wht;
+                                    // border: 1px dashed $med_gry;
+                                // }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
         table {
             border-collapse: collapse;
-            line-height: $main_font_dbl_line_height;
+        }
+
+        .content-wrapper {
+            margin: $slug_05 0;
         }
 
         .main-records-grid {
             table {
+                line-height: $main_font_dbl_line_height;
                 width: 100%;
-
-                .index {
-                    padding-left: $slug_half;
-                }
 
                 tr {
                     border-bottom: 1px dashed $med_gry;
@@ -82,10 +147,37 @@ body {
                     text-align: left;
                 }
 
+                th,
+                td {
+                    // border-right: 1px dashed $med_lgt_gry;
+                    cursor: default;
+                    padding-left: 10px;
 
+                    // &:last-of-type {
+                    //     border-right: 0;
+                    // }
+                }
 
-
+                .investment {
+                    a {
+                        color: $blue;
+                    }
+                }
             }
+        }
+
+        .has-loss {
+            color: $loss_red;
+        }
+
+        .has-gain {
+            color: $profit_green;
+        }
+
+        footer {
+            height: $slug_2;
+            line-height: $slug_2;
+            padding-bottom: $slug;
         }
 
 

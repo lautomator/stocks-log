@@ -23,6 +23,10 @@ body .container {
 body .container a {
   color: #202020;
   text-decoration: none;
+  transition: opacity 0.5s;
+}
+body .container a:hover {
+  opacity: 0.5;
 }
 body .container h1, body .container h2, body .container h3, body .container h4 {
   margin: 0;
@@ -33,15 +37,51 @@ body .container label,
 body .container .investment {
   font-family: "Arial Black", sans-serif;
 }
-body .container table {
-  border-collapse: collapse;
+body .container button,
+body .container select,
+body .container input[type=submit] {
+  background-color: #004c99;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  height: 30px;
+  width: 120px;
+}
+body .container button,
+body .container select {
+  padding: 0 5px;
+}
+body .container header {
+  text-align: center;
+}
+body .container header .title-wrapper {
+  height: 60px;
   line-height: 60px;
 }
-body .container .main-records-grid table {
-  width: 100%;
+body .container header .nav-wrapper {
+  border-bottom: 1px solid #a0a0a0;
 }
-body .container .main-records-grid table .index {
-  padding-left: 15px;
+body .container header .nav-wrapper nav ul {
+  list-style-type: none;
+}
+body .container header .nav-wrapper nav ul li {
+  display: inline-block;
+  font-weight: bold;
+  padding: 0 15px;
+}
+body .container header .nav-wrapper nav ul li a {
+  padding: 4px 6px 5px 4px;
+  color: #004c99;
+}
+body .container table {
+  border-collapse: collapse;
+}
+body .container .content-wrapper {
+  margin: 15px 0;
+}
+body .container .main-records-grid table {
+  line-height: 60px;
+  width: 100%;
 }
 body .container .main-records-grid table tr {
   border-bottom: 1px dashed #a0a0a0;
@@ -51,6 +91,25 @@ body .container .main-records-grid table tr.odd-row {
 }
 body .container .main-records-grid table th {
   text-align: left;
+}
+body .container .main-records-grid table th,
+body .container .main-records-grid table td {
+  cursor: default;
+  padding-left: 10px;
+}
+body .container .main-records-grid table .investment a {
+  color: #004c99;
+}
+body .container .has-loss {
+  color: #cc0000;
+}
+body .container .has-gain {
+  color: #4c9900;
+}
+body .container footer {
+  height: 60px;
+  line-height: 60px;
+  padding-bottom: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */

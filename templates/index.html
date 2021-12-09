@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Main{% endblock %}
+{% block title %}Summary{% endblock %}
 
 {% block content %}
-    <h2>Main</h2>
+    <h2>Summary</h2>
 
     <div class="main-records-grid">
         <table>
@@ -29,21 +29,35 @@
                 {% else %}
                 <tr class="odd-row">
                 {% endif %}
-                    <td class="index">{{ loop.index }}</td>
-                    <td class="investment"><a href="/post/{{ r['id'] }}">
-                        {{ r['investment'] }}</a></td>
-                    <td>{{ r['date_entered'] }}</td>
-                    <td>{{ r['shares'] }}</td>
-                    <td>{{ r['entry'] }}</td>
-                    <td>{{ r['stop'] }}</td>
-                    <td>{{ r['target'] }}</td>
-                    <td>{{ r['risk_share'] }}</td>
-                    <td>{% if r['exit'] == None %} &ndash; {% else %}
-                        {{ r['exit'] }} {% endif %}</td>
-                    <td>{% if r['exit_date'] == None %} &ndash; {% else %}
-                        {{ r['exit_date'] }} {% endif %}</td>
-                    <td>{% if r['pnl'] == None %} &ndash; {% else %}
-                        {{ r['pnl'] }} {% endif %}</td>
+                    <td>{{ loop.index }}</td>
+                    <td class="investment" title="Symbol">
+                        <a href="/post/{{ r['id'] }}">{{ r['investment'] }}</a>
+                    </td>
+                    <td title="Entry Date">{{ r['date_entered'] }}</td>
+                    <td title="Shares"> {{ r['shares'] }}</td>
+                    <td title="Entry Price">{{ r['entry'] }}</td>
+                    <td title="Stop Price">{{ r['stop'] }}</td>
+                    <td title="Target Price">{{ r['target'] }}</td>
+                    <td title="Risk/Share">{{ r['risk_share'] }}</td>
+                    <td title="Exit Price">{% if r['exit'] == None %}
+                            &ndash;
+                        {% else %}
+                            {{ r['exit'] }}
+                        {% endif %}</td>
+                    <td title="Exit Date">{% if r['exit_date'] == None %}
+                            &ndash;
+                        {% else %}
+                            {{ r['exit_date'] }}
+                        {% endif %}</td>
+                    <td title="PnL">{% if r['pnl'] == None %}
+                            &ndash;
+                        {% else %}
+                            {% if r['pnl'] > 0 %}
+                                <span class="has-gain">{{ r['pnl'] }}</span>
+                            {% else %}
+                                <span class="has-loss">{{ r['pnl'] }}</span>
+                            {% endif %}
+                        {% endif %}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -75,7 +89,7 @@
             {% endfor %}
         </select>
 
-        <input type="submit" name="submit" value="update">
+        <input type="submit" name="submit" value="Update">
     </form>
 
 {% endblock %}
