@@ -6,7 +6,8 @@ $med_gry: #a0a0a0;
 $drk_gry: #202020;
 $profit_green: #4c9900;
 $loss_red: #cc0000;
-$blue: #004c99;
+$blue: #0066cc;
+$warning-yellow: #ffcc00;
 
 
 // SIZES
@@ -23,6 +24,7 @@ $main_font_size: 15px;
 $main_font_line_height: 30px;
 $main_font_dbl_line_height: 60px;
 $header_font: "Arial Black", sans-serif;
+$small_font_size: 13px;
 
 
 html {
@@ -68,6 +70,14 @@ body {
             font-family: $header_font;
         }
 
+        .has-loss {
+            color: $loss_red;
+        }
+
+        .has-gain {
+            color: $profit_green;
+        }
+
         button,
         select,
         input[type="submit"] {
@@ -75,8 +85,22 @@ body {
             border: 0;
             color: $wht;
             cursor: pointer;
+            font-size: $small_font_size;
+            font-weight: bold;
             height: $slug;
             width: $slug_4;
+
+            &.danger {
+                background-color: $loss_red;
+            }
+
+            &.warning {
+                background-color: $warning-yellow;
+            }
+
+            &.success {
+                background-color: $profit_green;
+            }
         }
 
         button,
@@ -164,14 +188,6 @@ body {
                     }
                 }
             }
-        }
-
-        .has-loss {
-            color: $loss_red;
-        }
-
-        .has-gain {
-            color: $profit_green;
         }
 
         footer {

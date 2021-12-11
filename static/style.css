@@ -37,15 +37,38 @@ body .container label,
 body .container .investment {
   font-family: "Arial Black", sans-serif;
 }
+body .container .has-loss {
+  color: #cc0000;
+}
+body .container .has-gain {
+  color: #4c9900;
+}
 body .container button,
 body .container select,
 body .container input[type=submit] {
-  background-color: #004c99;
+  background-color: #0066cc;
   border: 0;
   color: #ffffff;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
   height: 30px;
   width: 120px;
+}
+body .container button.danger,
+body .container select.danger,
+body .container input[type=submit].danger {
+  background-color: #cc0000;
+}
+body .container button.warning,
+body .container select.warning,
+body .container input[type=submit].warning {
+  background-color: #ffcc00;
+}
+body .container button.success,
+body .container select.success,
+body .container input[type=submit].success {
+  background-color: #4c9900;
 }
 body .container button,
 body .container select {
@@ -71,7 +94,7 @@ body .container header .nav-wrapper nav ul li {
 }
 body .container header .nav-wrapper nav ul li a {
   padding: 4px 6px 5px 4px;
-  color: #004c99;
+  color: #0066cc;
 }
 body .container table {
   border-collapse: collapse;
@@ -98,13 +121,7 @@ body .container .main-records-grid table td {
   padding-left: 10px;
 }
 body .container .main-records-grid table .investment a {
-  color: #004c99;
-}
-body .container .has-loss {
-  color: #cc0000;
-}
-body .container .has-gain {
-  color: #4c9900;
+  color: #0066cc;
 }
 body .container footer {
   height: 60px;

@@ -5,8 +5,6 @@
 {% block content %}
     <h2>Delete a Record</h2>
 
-    <code>Post ID: {{ post_id }}</code>
-
     <form method="POST" action="/confirm-delete">
         <div>
             <input type="checkbox" name="delete_record"
@@ -15,7 +13,7 @@
         </div>
 
         <div>
-            <input type="submit" name="delete" value="delete">
+            <input type="submit" name="delete" value="delete" class="danger">
         </div>
     </form>
 {% endblock %}
