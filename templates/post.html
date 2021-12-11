@@ -154,8 +154,9 @@
             </tr>
             <tr>
                 <td>{% if has_chart %}
-                    <a href="{{ data['chart_url'] }}" target="_blank"
-                        rel="noopener">view the chart</a>
+                    <img style="width: 100%;"
+                        src="{{ url_for('static', filename=data['chart_url']) }}"
+                        alt="{{ data['chart_url'] }}">
                     {% else %}
                         <em>no chart available</em>
                     {% endif %}

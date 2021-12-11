@@ -435,3 +435,4 @@ def export_log():
     sql = 'select * from stocks_log order by investment asc'
     data = query_db(sql)
     return render_template('export.html', data=data)
+
