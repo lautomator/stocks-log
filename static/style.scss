@@ -225,6 +225,7 @@ body {
             margin: $slug 0 0 0;
             div {
                 line-height: $slug;
+                margin: 4px 0;
                 width: 100%;
 
                 label {
@@ -236,6 +237,8 @@ body {
                 input,
                 textarea {
                     display: inline-block;
+                    height: $slug;
+                    padding: 0;
                     width: 30%;
                 }
 

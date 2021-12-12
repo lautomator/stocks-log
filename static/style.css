@@ -185,6 +185,7 @@ body .container form {
 }
 body .container form div {
   line-height: 30px;
+  margin: 4px 0;
   width: 100%;
 }
 body .container form div label {
@@ -195,6 +196,8 @@ body .container form div label {
 body .container form div input,
 body .container form div textarea {
   display: inline-block;
+  height: 30px;
+  padding: 0;
   width: 30%;
 }
 body .container form div input[type=checkbox] {

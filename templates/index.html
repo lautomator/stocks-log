@@ -52,10 +52,12 @@
                     <td title="PnL">{% if r['pnl'] == None %}
                             &ndash;
                         {% else %}
+                            <strong>
                             {% if r['pnl'] > 0 %}
                                 <span class="has-gain">{{ r['pnl'] }}</span>
                             {% else %}
                                 <span class="has-loss">{{ r['pnl'] }}</span>
+                            </strong>
                             {% endif %}
                         {% endif %}</td>
                 </tr>
