@@ -12,6 +12,7 @@ $warning-yellow: #ffcc00;
 
 // SIZES
 $cont_wide: 900px;
+$cont_inner_wide: 600px;
 $slug: 30px;
 $slug_05: 15px;
 $slug_2: 60px;
@@ -154,7 +155,8 @@ body {
             margin: $slug_05 0;
         }
 
-        .main-records-grid {
+        .main-records-grid,
+        .details-record-grid {
             table {
                 line-height: $main_font_dbl_line_height;
                 width: 100%;
@@ -165,6 +167,10 @@ body {
                     &.odd-row {
                         background-color: $lgt_gry;
                     }
+
+                    &.no-border {
+                        border-bottom: 0;
+                    }
                 }
 
                 th {
@@ -173,13 +179,16 @@ body {
 
                 th,
                 td {
-                    // border-right: 1px dashed $med_lgt_gry;
                     cursor: default;
                     padding-left: 10px;
 
-                    // &:last-of-type {
-                    //     border-right: 0;
-                    // }
+                    img {
+                        width: 100%;
+                    }
+
+                    &.img-cell {
+                        padding-left: 0;
+                    }
                 }
 
                 .investment {
@@ -190,14 +199,17 @@ body {
             }
         }
 
+        .details-record-grid {
+            th, td {
+                width: 33%;
+            }
+        }
+
         footer {
             height: $slug_2;
             line-height: $slug_2;
             padding-bottom: $slug;
         }
-
-
-
 
     }
 }

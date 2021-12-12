@@ -102,26 +102,52 @@ body .container table {
 body .container .content-wrapper {
   margin: 15px 0;
 }
-body .container .main-records-grid table {
+body .container .main-records-grid table,
+body .container .details-record-grid table {
   line-height: 60px;
   width: 100%;
 }
-body .container .main-records-grid table tr {
+body .container .main-records-grid table tr,
+body .container .details-record-grid table tr {
   border-bottom: 1px dashed #a0a0a0;
 }
-body .container .main-records-grid table tr.odd-row {
+body .container .main-records-grid table tr.odd-row,
+body .container .details-record-grid table tr.odd-row {
   background-color: #f5f5f5;
 }
-body .container .main-records-grid table th {
+body .container .main-records-grid table tr.no-border,
+body .container .details-record-grid table tr.no-border {
+  border-bottom: 0;
+}
+body .container .main-records-grid table th,
+body .container .details-record-grid table th {
   text-align: left;
 }
 body .container .main-records-grid table th,
-body .container .main-records-grid table td {
+body .container .main-records-grid table td,
+body .container .details-record-grid table th,
+body .container .details-record-grid table td {
   cursor: default;
   padding-left: 10px;
 }
-body .container .main-records-grid table .investment a {
+body .container .main-records-grid table th img,
+body .container .main-records-grid table td img,
+body .container .details-record-grid table th img,
+body .container .details-record-grid table td img {
+  width: 100%;
+}
+body .container .main-records-grid table th.img-cell,
+body .container .main-records-grid table td.img-cell,
+body .container .details-record-grid table th.img-cell,
+body .container .details-record-grid table td.img-cell {
+  padding-left: 0;
+}
+body .container .main-records-grid table .investment a,
+body .container .details-record-grid table .investment a {
   color: #0066cc;
+}
+body .container .details-record-grid th, body .container .details-record-grid td {
+  width: 33%;
 }
 body .container footer {
   height: 60px;

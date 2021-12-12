@@ -3,34 +3,34 @@
 {% block title %}Record Details{% endblock %}
 
 {% block content %}
-    <h2>Record Details</h2>
+    <h2>{{ data['investment'] }} Details</h2>
 
     <div class="details-record-grid">
         <table>
             <tr>
                 <th>Investment</th>
-                <td>{{ data['investment'] }}</td>
+                <td colspan="2">{{ data['investment'] }}</td>
             </tr>
                 <th>Entry Date</th>
-                <td>{{ data['date_entered'] }}</td>
+                <td colspan="2">{{ data['date_entered'] }}</td>
             <tr>
                 <th>Shares</th>
-                <td>{{ data['shares'] }}</td>
+                <td colspan="2">{{ data['shares'] }}</td>
             </tr>
                 <th>Entry</th>
-                <td>{{ data['entry'] }}</td>
+                <td colspan="2">{{ data['entry'] }}</td>
             <tr>
                 <th>Stop</th>
-                <td>{{ data['stop'] }}</td>
+                <td colspan="2">{{ data['stop'] }}</td>
             </tr>
                 <th>Target</th>
-                <td>{{ data['target'] }}</td>
+                <td colspan="2">{{ data['target'] }}</td>
             <tr>
                 <th>Risk/Share</th>
-                <td>{{ data['risk_share'] }}</td>
+                <td colspan="2">{{ data['risk_share'] }}</td>
             </tr>
                 <th>Exit</th>
-                <td>{% if data['exit'] == None %}
+                <td colspan="2">{% if data['exit'] == None %}
                         &ndash;
                     {% else %}
                         {{ data['exit'] }}
@@ -38,7 +38,7 @@
                 </td>
             <tr>
                 <th>Exit Date</th>
-                <td>{% if data['exit_date'] == None %}
+                <td colspan="2">{% if data['exit_date'] == None %}
                         &ndash;
                     {% else %}
                         {{ data['exit_date'] }}
@@ -46,116 +46,94 @@
                     </td>
             <tr>
                 <th>PnL</th>
-                <td>{% if data['pnl'] == None %}
+                <td colspan="2">{% if data['pnl'] == None %}
                         &ndash;
                     {% else %}
                         {{ data['pnl'] }}
                     {% endif %}
                 </td>
             </tr>
-        </table>
-    </div>
 
-    <div class="details-record-grid">
-        <h3>Risk Assessment</h3>
+            <tr class="odd-row">
+                <td colspan="3"><h3>Risk Assessment</h3></td>
+            </tr>
 
-        <table>
             <tr>
                 <th>Entry Price</th>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['entry'] }}</td>
+                <td colspan="2">{{ risk_data['entry'] }}</td>
             </tr>
             <tr>
                 <th>Stop</th>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['stop'] }}</td>
+                <td colspan="2">{{ risk_data['stop'] }}</td>
             </tr>
             <tr>
                 <th>Risk/Share</th>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['risk_share'] }}</td>
+                <td colspan="2">{{ risk_data['risk_share'] }}</td>
             </tr>
             <tr>
-                <th>Overall Risk</th>
-                <td><em>2.5 - 7%</em></td>
-                <td>{{ risk_data['overall_risk'] * 100 }}%</td>
+                <th>Overall Risk <small><em>(2.5 - 7%)</em></small></th>
+                <td colspan="2">{{ risk_data['overall_risk'] * 100 }}%</td>
             </tr>
             <tr>
                 <th>Shares Bought</th>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['actual_shares'] }}</td>
+                <td colspan="2">{{ risk_data['actual_shares'] }}</td>
             </tr>
             <tr>
                 <th>Total Investment Amount</th>
-                <td>&nbsp;</td>
-                <td>{{ risk_data['investment_total'] }}</td>
+                <td colspan="2">{{ risk_data['investment_total'] }}</td>
             </tr>
-        </table>
-    </div>
 
-    <div class="details-record-grid">
-        <h3>Potential Profits</h3>
+            <tr class="odd-row">
+                <td colspan="3"><h3>Potential Profits</h3></td>
+            </tr>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Profit Level</th>
-                    <th>Price</th>
-                    <th>PnL</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>1R</th>
-                    <td>{{ profit_data['1r']['price'] }}</td>
-                    <td>{{ profit_data['1r']['pnl'] }}</td>
-                </tr>
-                <tr>
-                    <th>2R</th>
-                    <td>{{ profit_data['2r']['price'] }}</td>
-                    <td>{{ profit_data['2r']['pnl'] }}</td>
-                </tr>
-                <tr>
-                    <th>3R</th>
-                    <td>{{ profit_data['3r']['price'] }}</td>
-                    <td>{{ profit_data['3r']['pnl'] }}</td>
-                </tr>
-                <tr>
-                    <th>4R</th>
-                    <td>{{ profit_data['4r']['price'] }}</td>
-                    <td>{{ profit_data['4r']['pnl'] }}</td>
-                </tr>
-                <tr>
-                    <th>5R</th>
-                    <td>{{ profit_data['5r']['price'] }}</td>
-                    <td>{{ profit_data['5r']['pnl'] }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div>
-        <h3>Notes &amp; Chart</h3>
-
-        <table>
             <tr>
-                <th>Notes</th>
+                <th>Profit Level</th>
+                <th>Price</th>
+                <th>PnL</th>
             </tr>
             <tr>
-                <td>{% if data['notes'] == None %}
+                <th>1R</th>
+                <td>{{ profit_data['1r']['price'] }}</td>
+                <td>{{ profit_data['1r']['pnl'] }}</td>
+            </tr>
+            <tr>
+                <th>2R</th>
+                <td>{{ profit_data['2r']['price'] }}</td>
+                <td>{{ profit_data['2r']['pnl'] }}</td>
+            </tr>
+            <tr>
+                <th>3R</th>
+                <td>{{ profit_data['3r']['price'] }}</td>
+                <td>{{ profit_data['3r']['pnl'] }}</td>
+            </tr>
+            <tr>
+                <th>4R</th>
+                <td>{{ profit_data['4r']['price'] }}</td>
+                <td>{{ profit_data['4r']['pnl'] }}</td>
+            </tr>
+            <tr>
+                <th>5R</th>
+                <td>{{ profit_data['5r']['price'] }}</td>
+                <td>{{ profit_data['5r']['pnl'] }}</td>
+            </tr>
+
+            <tr class="odd-row">
+                <td colspan="3"><h3>Notes &amp; Chart</h3></td>
+            </tr>
+
+            <tr class="no-border">
+                <td colspan="2">{% if data['notes'] == None %}
                         &ndash;
                     {% else %}
                         {{ data['notes'] }}
                     {% endif %}
                 </td>
+                <td>&nbsp;</td>
             </tr>
-            <tr>
-                <th>Chart</th>
-            </tr>
-            <tr>
-                <td>{% if has_chart %}
-                    <img style="width: 100%;"
-                        src="{{ url_for('static', filename=data['chart_url']) }}"
+            <tr class="no-border">
+                <td colspan="3" class="img-cell">{% if has_chart %}
+                    <img src="{{ url_for('static', filename=data['chart_url']) }}"
                         alt="{{ data['chart_url'] }}">
                     {% else %}
                         <em>no chart available</em>
@@ -163,7 +141,6 @@
                 </td>
             </tr>
         </table>
-
     </div>
 {% endblock %}
 
