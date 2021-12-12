@@ -53,7 +53,6 @@
                     {% endif %}
                 </td>
             </tr>
-
             <tr class="odd-row">
                 <td colspan="3"><h3>Risk Assessment</h3></td>
             </tr>
@@ -86,7 +85,6 @@
             <tr class="odd-row">
                 <td colspan="3"><h3>Potential Profits</h3></td>
             </tr>
-
             <tr>
                 <th>Profit Level</th>
                 <th>Price</th>
@@ -117,12 +115,10 @@
                 <td>{{ profit_data['5r']['price'] }}</td>
                 <td>{{ profit_data['5r']['pnl'] }}</td>
             </tr>
-
             <tr class="odd-row">
-                <td colspan="3"><h3>Notes &amp; Chart</h3></td>
+                <td colspan="3"><h3>Notes</h3></td>
             </tr>
-
-            <tr class="no-border">
+            <tr>
                 <td colspan="2">{% if data['notes'] == None %}
                         &ndash;
                     {% else %}
@@ -130,6 +126,9 @@
                     {% endif %}
                 </td>
                 <td>&nbsp;</td>
+            </tr>
+            <tr class="odd-row no-border">
+                <td colspan="3"><h3>Chart</h3></td>
             </tr>
             <tr class="no-border">
                 <td colspan="3" class="img-cell">{% if has_chart %}

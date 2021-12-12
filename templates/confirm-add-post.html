@@ -21,5 +21,14 @@
 {% endblock %}
 
 {% block footer %}
-<a href="/add">add another record</a>
+    <button id="add_another">add another</button>
+    <script>
+        (function () {
+            var add_another_btn = document.getElementById("add_another");
+            add_another_btn.addEventListener('click', function() {
+                window.location.assign("/add");
+            });
+        }());
+    </script>
+
 {% endblock %}

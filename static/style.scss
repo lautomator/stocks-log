@@ -22,8 +22,6 @@ $slug_4: 120px;
 // TYPOGRAPHY
 $main_font: "Arial", sans-serif;
 $main_font_size: 15px;
-$main_font_line_height: 30px;
-$main_font_dbl_line_height: 60px;
 $header_font: "Arial Black", sans-serif;
 $small_font_size: 13px;
 
@@ -39,19 +37,18 @@ body {
     font-size: $main_font_size;
     font-weight: normal;
     height: 100%;
-    line-height: $main_font_line_height;
+    line-height: $slug;
 
     .container {
         background-color: $wht;
         border-left: 1px dashed $med_gry;
         border-right: 1px dashed $med_gry;
-        height: auto;
         margin: 0 auto;
         padding: 0 $slug;
         width: $cont_wide;
 
         a {
-            color: $drk_gry;
+            color: $blue;
             text-decoration: none;
             transition: opacity 0.5s;
 
@@ -129,16 +126,8 @@ body {
                             padding: 0 $slug_05;
 
                             a {
-                                // border: 1px dashed $med_gry;
                                 padding: 4px 6px 5px 4px;
-                                // transition: background-color 0.5s;
                                 color: $blue;
-
-                                // &:hover {
-                                //     background-color: $med_gry;
-                                //     color: $wht;
-                                    // border: 1px dashed $med_gry;
-                                // }
                             }
 
                         }
@@ -156,9 +145,10 @@ body {
         }
 
         .main-records-grid,
-        .details-record-grid {
+        .details-record-grid,
+        .report-record-grid {
             table {
-                line-height: $main_font_dbl_line_height;
+                line-height: $slug_2;
                 width: 100%;
 
                 tr {
@@ -200,8 +190,27 @@ body {
         }
 
         .details-record-grid {
-            th, td {
-                width: 33%;
+            margin: $slug 0 0 0;
+
+            table {
+                line-height: $slug;
+                th, td {
+                    width: 33%;
+                }
+            }
+        }
+
+        .report-record-grid {
+            table {
+                line-height: $slug;
+            }
+
+            td {
+                width: 25%;
+
+                &:last-of-type {
+                    width: auto;
+                }
             }
         }
 
@@ -209,6 +218,35 @@ body {
             height: $slug_2;
             line-height: $slug_2;
             padding-bottom: $slug;
+        }
+
+
+        form {
+            margin: $slug 0 0 0;
+            div {
+                line-height: $slug;
+                width: 100%;
+
+                label {
+                    display: inline-block;
+                    vertical-align: top;
+                    width: $slug_4;
+                }
+
+                input,
+                textarea {
+                    display: inline-block;
+                    width: 30%;
+                }
+
+                input[type="checkbox"] {
+                    width: auto;
+                }
+
+                textarea {
+                    height: $slug_4;
+                }
+            }
         }
 
     }
