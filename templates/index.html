@@ -16,10 +16,8 @@
                     <th>Entry</th>
                     <th>Stop</th>
                     <th>Target</th>
-                    <th>Risk/Share</th>
                     <th>Exit</th>
                     <th>Exit Date</th>
-                    <th>PnL</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +36,6 @@
                     <td title="Entry Price">{{ r['entry'] }}</td>
                     <td title="Stop Price">{{ r['stop'] }}</td>
                     <td title="Target Price">{{ r['target'] }}</td>
-                    <td title="Risk/Share">{{ r['risk_share'] }}</td>
                     <td title="Exit Price">{% if r['exit'] == None %}
                             &ndash;
                         {% else %}
@@ -48,17 +45,6 @@
                             &ndash;
                         {% else %}
                             {{ r['exit_date'] }}
-                        {% endif %}</td>
-                    <td title="PnL">{% if r['pnl'] == None %}
-                            &ndash;
-                        {% else %}
-                            <strong>
-                            {% if r['pnl'] > 0 %}
-                                <span class="has-gain">{{ r['pnl'] }}</span>
-                            {% else %}
-                                <span class="has-loss">{{ r['pnl'] }}</span>
-                            </strong>
-                            {% endif %}
                         {% endif %}</td>
                 </tr>
             {% endfor %}

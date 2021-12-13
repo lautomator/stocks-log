@@ -50,8 +50,7 @@ def insert_db(conn, data):
         entry,
         stop,
         target,
-        risk_share
-        ) VALUES (?, ?, ?, ?, ?, ?, ?); '''
+        ) VALUES (?, ?, ?, ?, ?, ?); '''
 
     values = (
        data['investment'],
@@ -59,8 +58,7 @@ def insert_db(conn, data):
        data['shares'],
        data['entry_price'],
        data['stop_price'],
-       data['target'],
-       data['risk_share']
+       data['target']
     )
 
     cur = conn.cursor()
@@ -77,10 +75,8 @@ def update_db(conn, data):
             entry = ?,
             stop = ?,
             target = ?,
-            risk_share = ?,
             exit = ?,
             exit_date = ?,
-            pnl = ?,
             notes = ?,
             chart_url = ?
         WHERE id = ?; '''
@@ -92,10 +88,8 @@ def update_db(conn, data):
        data['entry_price'],
        data['stop_price'],
        data['target'],
-       data['risk_share'],
        data['exit'],
        data['exit_date'],
-       data['pnl'],
        data['notes'],
        data['chart_url'],
        data['post_id']
@@ -151,7 +145,7 @@ def risk_calc(data):
     # overall risk = risk per share / entry price
     risk['overall_risk'] = round(risk['risk_share'] / risk['entry'], 2)
 
-    risk['investment_total'] = round(risk['entry'] * risk['actual_shares'], 2)
+    risk['investment_total'] = abs(round(risk['entry'] * risk['actual_shares'], 2))
     return risk
 
 
@@ -177,6 +171,10 @@ def profit_calc(data):
         result = (price - entry_price) * no_of_shares
         return round(result, 2)
 
+    # to account for a short sell
+    if data['actual_shares'] < 0:
+        risk_perc = risk_perc - (risk_perc * 2)
+
     # 1R - 5R or rMAX
     while (r <= r_max):
         potential_profits[str(r) + 'r']['price'] = price(r, entry_price, risk_perc)
@@ -200,10 +198,6 @@ def final_pnl(exit_price, entry_price, no_of_shares):
 # ------------------------------
 # VIEWS
 
-# static files
-# @app.route('/static')
-# def index():
-
 # main page/index of posts
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -214,10 +208,8 @@ def index():
         'Entry': 'entry',
         'Stop': 'stop',
         'Target': 'target',
-        'Risk/Share': 'risk_share',
         'Exit': 'exit',
         'Exit Date': 'exit_date',
-        'PnL': 'pnl'
     }
 
     opts_order = {
@@ -294,9 +286,10 @@ def review_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['risk_share'] = get_risk_per_share(
-            post_data['entry_price'],
-            post_data['stop_price'])
+        post_data['exit'] = request.form['exit']
+        post_data['exit_date'] = request.form['exit_date']
+        post_data['notes'] = request.form['notes']
+        post_data['chart_url'] = request.form['chart_url']
 
     return render_template(
         'review-add-post.html',
@@ -318,7 +311,10 @@ def confirm_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['risk_share'] = request.form['risk_share']
+        post_data['exit'] = request.form['exit']
+        post_data['exit_date'] = request.form['exit_date']
+        post_data['notes'] = request.form['notes']
+        post_data['chart_url'] = request.form['chart_url']
 
         # SQL instertion into DB
         conn = get_db()
@@ -355,12 +351,10 @@ def review_update(post_id):
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['risk_share'] = request.form['risk_share']
         post_data['exit'] = request.form['exit']
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
-        post_data['pnl'] = request.form['pnl']
 
     return render_template(
         'review-edit-post.html',
@@ -383,19 +377,10 @@ def confirm_update():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['risk_share'] = request.form['risk_share']
         post_data['exit'] = request.form['exit']
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
-        post_data['pnl'] = request.form['pnl']
-
-        if post_data['exit'] != None:
-            post_data['pnl'] = final_pnl(
-                float(post_data['exit']),
-                float(post_data['entry_price']),
-                int(post_data['shares'])
-            )
 
     conn = get_db()
     update_db(conn, post_data)

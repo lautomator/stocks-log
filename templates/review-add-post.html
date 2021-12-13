@@ -14,7 +14,6 @@
     <li>Entry: {{ post_data['entry_price'] }}</li>
     <li>Stop: {{ post_data['stop_price'] }}</li>
     <li>Target: {{ post_data['target'] }}</li>
-    <li>Risk/Share: {{ post_data['risk_share'] }}</li>
 </ul>
 
 <form method="POST" action="/confirm">
@@ -24,7 +23,6 @@
     <input type="hidden" name="entry_price" value="{{ post_data['entry_price'] }}">
     <input type="hidden" name="stop_price" value="{{ post_data['stop_price'] }}">
     <input type="hidden" name="target" value="{{ post_data['target'] }}">
-    <input type="hidden" name="risk_share" value="{{ post_data['risk_share'] }}">
 
     <div>
         <input type="submit" name="submit" value="add record">
