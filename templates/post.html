@@ -30,28 +30,13 @@
                 <td colspan="2">{{ risk_data['risk_share'] }}</td>
             </tr>
                 <th>Exit</th>
-                <td colspan="2">{% if data['exit'] == 'None' %}
-                        &ndash;
-                    {% else %}
-                        {{ data['exit'] }}
-                    {% endif %}
-                </td>
+                <td colspan="2">{{ data['exit'] }}</td>
             <tr>
                 <th>Exit Date</th>
-                <td colspan="2">{% if data['exit_date'] == 'None' %}
-                        &ndash;
-                    {% else %}
-                        {{ data['exit_date'] }}
-                    {% endif %}
-                    </td>
+                <td colspan="2">{{ data['exit_date'] }}</td>
             <tr>
                 <th>PnL</th>
-                <td colspan="2">{% if pnl == 'None' %}
-                        &ndash;
-                    {% else %}
-                        {{ pnl }}
-                    {% endif %}
-                </td>
+                <td colspan="2">{{ pnl }}</td>
             </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
@@ -127,12 +112,7 @@
                 <td colspan="3"><h3>Notes</h3></td>
             </tr>
             <tr>
-                <td colspan="2">{% if data['notes'] == 'None' %}
-                        &ndash;
-                    {% else %}
-                        {{ data['notes'] }}
-                    {% endif %}
-                </td>
+                <td colspan="2">{{ data['notes'] }}</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
@@ -142,11 +122,12 @@
                 <td colspan="3"><h3>Chart</h3></td>
             </tr>
             <tr class="no-border">
-                <td colspan="3" class="img-cell">{% if has_chart %}
-                    <img src="{{ url_for('static', filename=data['chart_url']) }}"
-                        alt="{{ data['chart_url'] }}">
+                <td colspan="3" class="img-cell">
+                    {% if has_chart %}
+                        <img src="{{ url_for('static', filename=data['chart_url']) }}"
+                            alt="{{ data['chart_url'] }}">
                     {% else %}
-                        &ndash;
+                        None
                     {% endif %}
                 </td>
             </tr>

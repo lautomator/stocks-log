@@ -247,11 +247,13 @@ def show_post(post_id):
     has_chart = False
     pnl = None
 
-    if data['chart_url'] != 'None':
-        has_chart = True
-
-    if data['exit'] != 'None':
+    if isinstance(data['exit'], float):
         pnl = get_pnl(data['exit'], data['entry'], data['shares'])
+    else:
+        pnl = 'None'
+
+    if data['chart_url'] != None:
+        has_chart = True
 
     return render_template(
         'post.html',
