@@ -49,7 +49,7 @@ def insert_db(conn, data):
         shares,
         entry,
         stop,
-        target,
+        target
         ) VALUES (?, ?, ?, ?, ?, ?); '''
 
     values = (
@@ -136,7 +136,7 @@ def risk_calc(data):
         'risk_per_trade_amt': None,
         'entry': data['entry'],
         'stop': data['stop'],
-        'risk_share': data['risk_share'],
+        'risk_share': get_risk_per_share(data['entry'], data['stop']),
         'overall_risk': None,
         'actual_shares': data['shares'],
         'investment_total': None
@@ -145,7 +145,7 @@ def risk_calc(data):
     # overall risk = risk per share / entry price
     risk['overall_risk'] = round(risk['risk_share'] / risk['entry'], 2)
 
-    risk['investment_total'] = abs(round(risk['entry'] * risk['actual_shares'], 2))
+    risk['investment_total'] = float(abs(round(risk['entry'] * risk['actual_shares'], 2)))
     return risk
 
 
@@ -163,13 +163,9 @@ def profit_calc(data):
     r = 1
     r_max = 5
 
-    def price(level, entry_price, risk_perc):
-        result = round((risk_perc * level + 1) * entry_price, 2)
+    def price_level(level, entry_price, risk_perc):
+        result = float(round((risk_perc * level + 1) * entry_price, 2))
         return result
-
-    def pnl(price, entry_price, no_of_shares):
-        result = (price - entry_price) * no_of_shares
-        return round(result, 2)
 
     # to account for a short sell
     if data['actual_shares'] < 0:
@@ -177,9 +173,9 @@ def profit_calc(data):
 
     # 1R - 5R or rMAX
     while (r <= r_max):
-        potential_profits[str(r) + 'r']['price'] = price(r, entry_price, risk_perc)
+        potential_profits[str(r) + 'r']['price'] = price_level(r, entry_price, risk_perc)
         potential_profits[str(r) + 'r']['pnl']\
-        = pnl(potential_profits[str(r) + 'r']['price'], entry_price, no_of_shares)
+        = get_pnl(potential_profits[str(r) + 'r']['price'], entry_price, no_of_shares)
         r += 1
 
     return potential_profits
@@ -187,11 +183,11 @@ def profit_calc(data):
 
 def get_risk_per_share(entry_price, stop_price):
     risk = abs(float(entry_price) - float(stop_price))
-    return format_currency(risk)
+    return risk
 
 
-def final_pnl(exit_price, entry_price, no_of_shares):
-    result = (exit_price - entry_price) * no_of_shares
+def get_pnl(exit_price, entry_price, no_of_shares):
+    result = float((exit_price - entry_price) * no_of_shares)
     return round(result, 2)
 
 
@@ -249,9 +245,13 @@ def show_post(post_id):
     risk_data = risk_calc(data)
     profit_data = profit_calc(risk_data)
     has_chart = False
+    pnl = None
 
-    if data['chart_url'] is not None:
+    if data['chart_url'] != 'None':
         has_chart = True
+
+    if data['exit'] != 'None':
+        pnl = get_pnl(data['exit'], data['entry'], data['shares'])
 
     return render_template(
         'post.html',
@@ -259,6 +259,7 @@ def show_post(post_id):
         data=data,
         risk_data=risk_data,
         profit_data=profit_data,
+        pnl=pnl,
         has_chart=has_chart
     )
 
@@ -286,10 +287,6 @@ def review_post():
         post_data['entry_price'] = request.form['entry_price']
         post_data['stop_price'] = request.form['stop_price']
         post_data['target'] = request.form['target']
-        post_data['exit'] = request.form['exit']
-        post_data['exit_date'] = request.form['exit_date']
-        post_data['notes'] = request.form['notes']
-        post_data['chart_url'] = request.form['chart_url']
 
     return render_template(
         'review-add-post.html',
@@ -307,14 +304,10 @@ def confirm_post():
         # all of the POST data
         post_data['investment'] = request.form['investment']
         post_data['entry_date'] = request.form['entry_date']
-        post_data['shares'] = request.form['shares']
-        post_data['entry_price'] = request.form['entry_price']
-        post_data['stop_price'] = request.form['stop_price']
-        post_data['target'] = request.form['target']
-        post_data['exit'] = request.form['exit']
-        post_data['exit_date'] = request.form['exit_date']
-        post_data['notes'] = request.form['notes']
-        post_data['chart_url'] = request.form['chart_url']
+        post_data['shares'] = int(request.form['shares'])
+        post_data['entry_price'] = float(request.form['entry_price'])
+        post_data['stop_price'] = float(request.form['stop_price'])
+        post_data['target'] = float(request.form['target'])
 
         # SQL instertion into DB
         conn = get_db()
@@ -370,17 +363,21 @@ def confirm_update():
 
     if request.method == 'POST':
         # all of the POST data
-        post_data['post_id'] = request.form['post_id']
+        post_data['post_id'] = int(request.form['post_id'])
         post_data['investment'] = request.form['investment']
         post_data['entry_date'] = request.form['entry_date']
-        post_data['shares'] = request.form['shares']
-        post_data['entry_price'] = request.form['entry_price']
-        post_data['stop_price'] = request.form['stop_price']
-        post_data['target'] = request.form['target']
-        post_data['exit'] = request.form['exit']
+        post_data['shares'] = int(request.form['shares'])
+        post_data['entry_price'] = float(request.form['entry_price'])
+        post_data['stop_price'] = float(request.form['stop_price'])
+        post_data['target'] =float(request.form['target'])
+        post_data['exit'] = float(request.form['exit'])
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
+
+        # We want to commit a decimal value or None
+        if post_data['exit'] =='':
+            post_data['exit'] = None
 
     conn = get_db()
     update_db(conn, post_data)

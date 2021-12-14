@@ -27,10 +27,10 @@
                 <td colspan="2">{{ data['target'] }}</td>
             <tr>
                 <th>Risk/Share</th>
-                <td colspan="2">{{ data['risk_share'] }}</td>
+                <td colspan="2">{{ risk_data['risk_share'] }}</td>
             </tr>
                 <th>Exit</th>
-                <td colspan="2">{% if data['exit'] == None %}
+                <td colspan="2">{% if data['exit'] == 'None' %}
                         &ndash;
                     {% else %}
                         {{ data['exit'] }}
@@ -38,7 +38,7 @@
                 </td>
             <tr>
                 <th>Exit Date</th>
-                <td colspan="2">{% if data['exit_date'] == None %}
+                <td colspan="2">{% if data['exit_date'] == 'None' %}
                         &ndash;
                     {% else %}
                         {{ data['exit_date'] }}
@@ -46,12 +46,15 @@
                     </td>
             <tr>
                 <th>PnL</th>
-                <td colspan="2">{% if data['pnl'] == None %}
+                <td colspan="2">{% if pnl == 'None' %}
                         &ndash;
                     {% else %}
-                        {{ data['pnl'] }}
+                        {{ pnl }}
                     {% endif %}
                 </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
             </tr>
             <tr class="odd-row">
                 <td colspan="3"><h3>Risk Assessment</h3></td>
@@ -81,7 +84,9 @@
                 <th>Total Investment Amount</th>
                 <td colspan="2">{{ risk_data['investment_total'] }}</td>
             </tr>
-
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
             <tr class="odd-row">
                 <td colspan="3"><h3>Potential Profits</h3></td>
             </tr>
@@ -115,17 +120,23 @@
                 <td>{{ profit_data['5r']['price'] }}</td>
                 <td>{{ profit_data['5r']['pnl'] }}</td>
             </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
             <tr class="odd-row">
                 <td colspan="3"><h3>Notes</h3></td>
             </tr>
             <tr>
-                <td colspan="2">{% if data['notes'] == None %}
+                <td colspan="2">{% if data['notes'] == 'None' %}
                         &ndash;
                     {% else %}
                         {{ data['notes'] }}
                     {% endif %}
                 </td>
                 <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
             </tr>
             <tr class="odd-row no-border">
                 <td colspan="3"><h3>Chart</h3></td>
@@ -135,7 +146,7 @@
                     <img src="{{ url_for('static', filename=data['chart_url']) }}"
                         alt="{{ data['chart_url'] }}">
                     {% else %}
-                        <em>no chart available</em>
+                        &ndash;
                     {% endif %}
                 </td>
             </tr>
