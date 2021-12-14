@@ -183,7 +183,7 @@ def profit_calc(data):
 
 def get_risk_per_share(entry_price, stop_price):
     risk = abs(float(entry_price) - float(stop_price))
-    return risk
+    return round(risk, 2)
 
 
 def get_pnl(exit_price, entry_price, no_of_shares):
@@ -372,14 +372,18 @@ def confirm_update():
         post_data['entry_price'] = float(request.form['entry_price'])
         post_data['stop_price'] = float(request.form['stop_price'])
         post_data['target'] =float(request.form['target'])
-        post_data['exit'] = float(request.form['exit'])
+        post_data['exit'] = request.form['exit']
         post_data['exit_date'] = request.form['exit_date']
         post_data['notes'] = request.form['notes']
         post_data['chart_url'] = request.form['chart_url']
 
         # We want to commit a decimal value or None
-        if post_data['exit'] =='':
+        if post_data['exit'] == '':
             post_data['exit'] = None
+        else: post_data['exit'] = float(post_data['exit'])
+
+        if post_data['chart_url'] == '':
+            post_data['chart_url'] = None;
 
     conn = get_db()
     update_db(conn, post_data)

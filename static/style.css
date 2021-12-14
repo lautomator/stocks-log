@@ -206,5 +206,8 @@ body .container form div input[type=checkbox] {
 body .container form div textarea {
   height: 120px;
 }
+body .container form div .auto-width {
+  width: auto;
+}
 
 /*# sourceMappingURL=style.css.map */
