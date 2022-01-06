@@ -143,7 +143,7 @@ def risk_calc(data):
     }
 
     # overall risk = risk per share / entry price
-    risk['overall_risk'] = round(risk['risk_share'] / risk['entry'], 2)
+    risk['overall_risk'] = int(round(risk['risk_share'] / risk['entry'] * 100, 2))
 
     risk['investment_total'] = float(abs(round(risk['entry'] * risk['actual_shares'], 2)))
     return risk
@@ -252,7 +252,7 @@ def show_post(post_id):
     else:
         pnl = 'None'
 
-    if data['chart_url'] != None:
+    if len(data['chart_url']) > 10:
         has_chart = True
 
     return render_template(
@@ -420,7 +420,7 @@ def report():
 # export the log
 @app.route('/export')
 def export_log():
-    sql = 'select * from stocks_log order by investment asc'
+    sql = 'select * from stocks_log order by date_entered desc'
     data = query_db(sql)
     return render_template('export.html', data=data)
 

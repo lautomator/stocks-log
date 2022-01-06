@@ -24,6 +24,8 @@ $main_font: "Arial", sans-serif;
 $main_font_size: 15px;
 $header_font: "Arial Black", sans-serif;
 $small_font_size: 13px;
+$report_font: "Monaco", monospace;
+$extra_small_font_size: 10px;
 
 
 html {
@@ -214,6 +216,13 @@ body {
             }
         }
 
+        .report-data {
+            color: $med_gry;
+            font-family: $report_font;
+            font-size: $extra_small_font_size;
+            line-height: 12px;
+        }
+
         footer {
             height: $slug_2;
             line-height: $slug_2;
@@ -255,6 +264,5 @@ body {
                 }
             }
         }
-
     }
 }

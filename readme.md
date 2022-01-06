@@ -34,6 +34,18 @@ sqlite> <your sql commands>
 sqlite> .exit
 ```
 
+Import a table:
+
+```
+>> cd stocks
+>> . env/bin/activate
+>> sqlite3
+sqlite> .open stocks.db
+sqlite> .schema
+sqlite> .mode csv
+sqlite> .import <path/to/csv/file> stocks_log
+```
+
 ## Development
 ```
 >> cd static

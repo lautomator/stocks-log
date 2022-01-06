@@ -6,27 +6,10 @@
     <h2>Export</h2>
 
 <div class="report-data">
-    <button id="select_all" onclick="selectText()">select all</button>
-
-    <textarea style="width: 100%; height: 500px;" id="report_csv_data">
-        Investment, Entry Date, Shares, Entry, Stop, Target, Risk/Share, Exit, Exit Date, PnL
-        {% for r in data %}
-        {{ r['investment'] }}, {{ r['date_entered'] }}, {{ r['shares'] }}, {{ r['entry'] }}, {{ r['stop'] }}, {{ r['target'] }}, {{ r['risk_share'] }}, {{ r['exit'] }}, {{ r['exit_date'] }}, {{ r['pnl'] }}, {{ r['chart_url'] }}, {{ r['notes'] }}
-        {% endfor %}
-    </textarea>
+    Investment, Entry Date, Shares, Entry, Stop, Target, Risk/Share, Exit, Exit Date, PnL<br>
+    {% for r in data %}
+        {{ r['investment'] }}, {{ r['date_entered'] }}, {{ r['shares'] }}, {{ r['entry'] }}, {{ r['stop'] }}, {{ r['target'] }}, {{ r['risk_share'] }}, {{ r['exit'] }}, {{ r['exit_date'] }}, {{ r['pnl'] }}, {{ r['chart_url'] }}, {{ r['notes'] }}<br>
+    {% endfor %}
 </div>
-
-<script>
-    // (function () {
-        function selectText() {
-            // var select_all_btn = document.getElementById("select_all");
-            var report_data = document.getElementById("report_csv_data");
-            report_data.select();
-
-        }
-
-
-    // }());
-</script>
 
 {% endblock %}

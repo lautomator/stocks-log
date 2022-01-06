@@ -175,6 +175,12 @@ body .container .report-record-grid td {
 body .container .report-record-grid td:last-of-type {
   width: auto;
 }
+body .container .report-data {
+  color: #a0a0a0;
+  font-family: "Monaco", monospace;
+  font-size: 10px;
+  line-height: 12px;
+}
 body .container footer {
   height: 60px;
   line-height: 60px;
