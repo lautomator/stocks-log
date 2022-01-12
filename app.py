@@ -252,7 +252,7 @@ def show_post(post_id):
     else:
         pnl = 'None'
 
-    if len(data['chart_url']) > 10:
+    if data['chart_url']:
         has_chart = True
 
     return render_template(
