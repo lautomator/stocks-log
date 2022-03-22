@@ -11,24 +11,24 @@
                 <th colspan="2"><h3>Frequency</h3></th>
             </tr>
             <tr>
-                <td>Trade period</td>
-                <td>%DATA%</td>
+                <td>Trade period <em>(months)</em></td>
+                <td>{{ metrics['trading period'] }}</td>
             </tr>
             <tr>
                 <td>Total trades</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['total number of trades'] }}</td>
             </tr>
             <tr>
                 <td>Avg. trades/month</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg trades per month'] }}</td>
             </tr>
             <tr>
                 <td>Avg. trades/week</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg trades per week'] }}</td>
             </tr>
             <tr>
-                <td>Avg. trade duration</td>
-                <td>%DATA%</td>
+                <td>Avg. trade duration <em>(days)</em></td>
+                <td>{{ metrics['avg trade length'] }}</td>
             </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
@@ -38,23 +38,23 @@
             </tr>
             <tr>
                 <td>Total profits</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['total profits'] }}</td>
             </tr>
             <tr>
                 <td>Total losses</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['total losses'] }}</td>
             </tr>
             <tr>
                 <td>PnL</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['final pnl'] }}</td>
             </tr>
             <tr>
                 <td>Avg. monthly profits</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg monthly profits'] }}</td>
             </tr>
             <tr>
                 <td>Avg. monthly losses</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg monthly losses'] }}</td>
             </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
@@ -64,27 +64,27 @@
             </tr>
             <tr>
                 <td>Bought long</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['long trades'] }}</td>
             </tr>
             <tr>
                 <td>Sold short</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['short trades'] }}</td>
             </tr>
             <tr>
                 <td>Avg. entry price</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg entry price'] }}</td>
             </tr>
             <tr>
                 <td>Avg. risk/share</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg risk amount'] }}</td>
             </tr>
             <tr>
                 <td>Avg. ROI</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['avg roi'] }}</td>
             </tr>
             <tr>
                 <td>Most traded</td>
-                <td>%DATA%</td>
+                <td>{{ metrics['most traded'] }}</td>
             </tr>
         </table>
     </div>

@@ -4,26 +4,6 @@ import datetime
 from collections import Counter
 
 
-metrics = {
-    'trading period': 0, # months
-    'total number of trades': 0,
-    'avg trades per month': 0,
-    'avg trades per week': 0,
-    'avg trade length': 0, # days
-    'total profits': 0,
-    'total losses': 0,
-    'avg monthly profits': 0,
-    'avg monthly losses': 0,
-    'final pnl': 0,
-    'avg roi': 0,
-    'long trades': 0,
-    'short trades': 0,
-    'avg entry price': 0,
-    'avg risk amount': 0,
-    'most traded': []
-}
-
-
 def total_trades(data):
     return len(data)
 
@@ -34,7 +14,7 @@ def trading_period(data):
 
     for row in data:
         entry_month = datetime.datetime.strptime(
-            row['entry date'], '%m/%d/%Y').month
+            row['date_entered'], '%Y-%m-%d').month
         entry_months.append(entry_month)
 
     max_month = max(entry_months)
@@ -62,8 +42,8 @@ def avg_trade_length(data):
     trade_length = None
 
     for row in data:
-        start = datetime.datetime.strptime(row['entry date'], '%m/%d/%Y')
-        stop = datetime.datetime.strptime(row['sell date'], '%m/%d/%Y')
+        start = datetime.datetime.strptime(row['date_entered'], '%Y-%m-%d')
+        stop = datetime.datetime.strptime(row['exit_date'], '%Y-%m-%d')
         trade_length = (stop - start).days + 1
         trade_lengths.append(trade_length)
 
@@ -80,16 +60,19 @@ def profit_and_loss(period, data):
         'pnl': 0
     }
 
+    item_pnl = 0
     tp = 0
     mp = 0
     tl = 0
     ml = 0
 
     for row in data:
-        if float(row['pnl']) > 0:
-            tp += float(row['pnl'])
+        item_pnl = float((row['exit'] - row['exit']) * row['shares'])
+        
+        if item_pnl > 0:
+            tp += item_pnl
         else:
-            tl += float(row['pnl'])
+            tl += item_pnl
 
     mp = tp / period
     ml = tl / period

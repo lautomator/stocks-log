@@ -146,7 +146,7 @@ def risk_calc(data):
     }
 
     # overall risk = risk per share / entry price
-    risk['overall_risk'] = int(round(risk['risk_share'] / risk['entry'] * 100, 2))
+    risk['overall_risk'] = float(round(risk['risk_share'] / risk['entry'] * 100, 1))
 
     risk['investment_total'] = float(abs(round(risk['entry'] * risk['actual_shares'], 2)))
     return risk
@@ -162,7 +162,7 @@ def profit_calc(data):
     }
     entry_price = data['entry']
     no_of_shares = data['actual_shares']
-    risk_perc = data['overall_risk']
+    risk_perc = data['overall_risk']/100
     r = 1
     r_max = 5
 
@@ -177,10 +177,11 @@ def profit_calc(data):
     # 1R - 5R or rMAX
     while (r <= r_max):
         potential_profits[str(r) + 'r']['price'] = price_level(r, entry_price, risk_perc)
+        
         potential_profits[str(r) + 'r']['pnl']\
         = get_pnl(potential_profits[str(r) + 'r']['price'], entry_price, no_of_shares)
         r += 1
-
+    
     return potential_profits
 
 
@@ -433,7 +434,39 @@ def confirm_delete():
 # summary report
 @app.route('/report')
 def report():
-    return render_template('report.html')
+    sql = 'select * from stocks_log order by date_entered desc'
+    data = query_db(sql)
+    total_trades = swing_stats_mod.total_trades(data)
+    trading_period = swing_stats_mod.trading_period(data)
+    metrics = {
+        'trading period': trading_period, # months
+        'total number of trades': total_trades,
+        'avg trades per month': swing_stats_mod.avg_no_of_trades(
+            total_trades,
+            trading_period
+        )['monthly'],
+        'avg trades per week': swing_stats_mod.avg_no_of_trades(
+            total_trades,
+            trading_period
+        )['weekly'],
+        'avg trade length': swing_stats_mod.avg_trade_length(data), # days
+        'total profits': swing_stats_mod.profit_and_loss(
+            trading_period, 
+            data
+        )['total profits'],
+        'total losses': 0,
+        'final pnl': 0,
+        'avg monthly profits': 0,
+        'avg monthly losses': 0,
+        'long trades': 0,
+        'short trades': 0,
+        'avg entry price': 0,
+        'avg risk amount': 0,
+        'avg roi': 0,
+        'most traded': []
+    }
+
+    return render_template('report.html', metrics=metrics)
 
 
 # export the log
