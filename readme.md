@@ -2,12 +2,12 @@
 
 Keep track of your investments, including risk, profit, and loss. The app generates an overall report with some basic metrics including, frequency of trades, PnL, and trading patterns. There is the option to include a chart with each trade record.
 
-This version of the app is intended as a demonstration of its features. I've included several fictional trades. This is not meant for the public or to be used in any way. A more robust version would have user accounts and a larger infastrcuture to include an entire administrative panel.
+This version of the app is intended as a demonstration of its features. Currently, it is not responsive to smaller screens (phones and tablets) and is primarily for the a desktop browser. I've included several fictional trades. This is not meant for the public or to be used in any way. A more robust version would have user accounts and a larger infastrcuture to include an entire administrative panel.
 
 ## Development
 
 ### Requirements
-This is a [Flask](https://flask.palletsprojects.com/en/2.0.x/) Application that uses the Jinja templating system . You will need the following to do any development:
+This is a [Flask](https://flask.palletsprojects.com/en/2.0.x/) application that uses the Jinja templating system . You will need the following to do any development:
 
 * click
 * Flask
@@ -16,7 +16,17 @@ This is a [Flask](https://flask.palletsprojects.com/en/2.0.x/) Application that 
 * MarkupSafe
 * Werkzeug
 
-See `requirements.txt` for specific versions of each. You can create a virtual environment for this and install the requirements via Pip and Venv. Once you have that set up, you can use `start.sh` to run the environment. See the next section.
+You'll need Python 3, [pip](https://pypi.org/project/pip/), and [venv](https://docs.python.org/3/library/venv.html).
+
+See `requirements.txt` for specific versions of each. You can create a virtual environment for this and install the requirements via **pip** and **venv**. 
+
+```
+>> cd stocks
+>> . env/bin/activate
+>> python -m pip install -r requirements.txt
+```
+
+Once you have that set up, you can use `start.sh` to run the Flask development  environment. See the next section.
 
 ### Running the App Locally for Development
 To start the virtual environment and get the server running:

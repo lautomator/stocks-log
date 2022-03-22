@@ -1,15 +1,18 @@
 from flask import Flask
-from flask import request
+from flask import request,render_template, g, redirect, url_for
+from functools import wraps
 from markupsafe import escape
-from flask import url_for
-from flask import request
-from flask import render_template
+
 import sqlite3
-from flask import g
 import swing_stats_mod
 
 
 app = Flask(__name__)
+
+app_settings = {
+    # for development
+    'logged_in': False,
+}
 
 # ------------------------------
 # DATABASE OPERATIONS
@@ -191,6 +194,15 @@ def get_pnl(exit_price, entry_price, no_of_shares):
     return round(result, 2)
 
 
+def login_required(f):
+    @wraps(f)
+    def login_redirect(*args, **kwargs):
+        if not app_settings['logged_in']:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return login_redirect
+
+
 # ------------------------------
 # VIEWS
 
@@ -268,12 +280,14 @@ def show_post(post_id):
 
 # ADD a new post/record
 @app.route('/add', methods=['GET', 'POST'])
+@login_required
 def add_post():
     return render_template('add-post.html')
 
 
 # REVIEW a new post/record
 @app.route('/review', methods=['GET', 'POST'])
+@login_required
 def review_post():
     has_reviewed = False
     post_data = {}
@@ -299,6 +313,7 @@ def review_post():
 
 # CONFIRM a new post/record
 @app.route('/confirm', methods=['GET', 'POST'])
+@login_required
 def confirm_post():
     post_data = {}
 
@@ -323,6 +338,7 @@ def confirm_post():
 
 # edit/update a post/record
 @app.route('/edit/<int:post_id>')
+@login_required
 def edit_post(post_id):
     sql = 'select * from stocks_log where id=?'
     data = query_db(sql, [post_id], one=True)
@@ -335,6 +351,7 @@ def edit_post(post_id):
 
 # review a post/record update action
 @app.route('/review-edit/<int:post_id>', methods=['GET', 'POST'])
+@login_required
 def review_update(post_id):
     post_data = {}
 
@@ -360,6 +377,7 @@ def review_update(post_id):
 
 # confirm a post/record update action
 @app.route('/confirm-edit', methods=['GET', 'POST'])
+@login_required
 def confirm_update():
     post_data = {}
 
@@ -396,12 +414,14 @@ def confirm_update():
 
 # delete a post/record
 @app.route('/delete/<int:post_id>', methods=['GET', 'POST'])
+@login_required
 def delete_post(post_id):
     return render_template('delete-post.html', post_id=post_id)
 
 
 # CONFIRM deletion
 @app.route('/confirm-delete', methods=['GET', 'POST'])
+@login_required
 def confirm_delete():
     if request.method == 'POST':
         post_id = request.form['delete_record']
@@ -413,7 +433,6 @@ def confirm_delete():
 # summary report
 @app.route('/report')
 def report():
-
     return render_template('report.html')
 
 
@@ -424,3 +443,7 @@ def export_log():
     data = query_db(sql)
     return render_template('export.html', data=data)
 
+# login
+@app.route('/login')
+def login():
+    return render_template('login.html')
