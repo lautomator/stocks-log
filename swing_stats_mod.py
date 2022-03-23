@@ -67,7 +67,7 @@ def profit_and_loss(period, data):
     ml = 0
 
     for row in data:
-        item_pnl = float((row['exit'] - row['exit']) * row['shares'])
+        item_pnl = (row['exit'] - row['entry']) * row['shares']
         
         if item_pnl > 0:
             tp += item_pnl
@@ -81,11 +81,11 @@ def profit_and_loss(period, data):
     pnl['monthly profits'] = round(mp, 2)
     pnl['total losses'] = round(tl, 2)
     pnl['monthly losses'] = round(ml, 2)
-    pnl['pnl'] = tp + tl
+    pnl['pnl'] = round(tp + tl, 2)
     return pnl
 
 
-def return_of_investment(net_return, data):
+def return_of_investment(data):
     roi = 0
     ent_p = 0 # entry price
     ext_p = 0 # exit price
@@ -99,15 +99,15 @@ def return_of_investment(net_return, data):
     # ref: https://www.investopedia.com/articles/basics/10/guide-to-calculating-roi.asp
 
     for row in data:
-        ent_p = float(row['entry price'])
-        ext_p = float(row['exit price'])
+        ent_p = float(row['entry'])
+        ext_p = float(row['exit'])
         shares = int(row['shares'])
         profit = (ext_p - ent_p) * shares
 
         roi = round((profit / (ent_p * shares)) * 100, 2)
         all_rois.append(roi)
 
-    avg_roi = round(sum(all_rois) / len(all_rois))
+    avg_roi = round(sum(all_rois) / len(all_rois), 2)
     return avg_roi
 
 
@@ -155,4 +155,8 @@ def get_most_traded_equity(data):
 
     the_winner.append(occurence_count.most_common(1)[0][0])
     the_winner.append(occurence_count.most_common(1)[0][1])
+    
+    if the_winner[1] < 2:
+        the_winner[0] = 'n/a'
+    
     return the_winner

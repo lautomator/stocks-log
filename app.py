@@ -438,6 +438,7 @@ def report():
     data = query_db(sql)
     total_trades = swing_stats_mod.total_trades(data)
     trading_period = swing_stats_mod.trading_period(data)
+    trade_types = swing_stats_mod.trade_type_amts(data)
     metrics = {
         'trading period': trading_period, # months
         'total number of trades': total_trades,
@@ -454,16 +455,27 @@ def report():
             trading_period, 
             data
         )['total profits'],
-        'total losses': 0,
-        'final pnl': 0,
-        'avg monthly profits': 0,
-        'avg monthly losses': 0,
-        'long trades': 0,
-        'short trades': 0,
-        'avg entry price': 0,
-        'avg risk amount': 0,
-        'avg roi': 0,
-        'most traded': []
+        'total losses': swing_stats_mod.profit_and_loss(
+            trading_period, 
+            data
+        )['total losses'],
+        'final pnl': swing_stats_mod.profit_and_loss(
+            trading_period, 
+            data
+        )['pnl'],
+        'avg monthly profits':  swing_stats_mod.profit_and_loss(
+            trading_period, 
+            data
+        )['monthly profits'],
+        'avg monthly losses':  swing_stats_mod.profit_and_loss(
+            trading_period, 
+            data
+        )['monthly losses'],
+        'long trades': trade_types['long'],
+        'short trades': trade_types['short'],
+        'avg entry price': swing_stats_mod.price_averager(data, 'entry'),
+        'avg roi': swing_stats_mod.return_of_investment(data),
+        'most traded': swing_stats_mod.get_most_traded_equity(data)[0]
     }
 
     return render_template('report.html', metrics=metrics)

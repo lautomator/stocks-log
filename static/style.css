@@ -215,5 +215,8 @@ body .container form div textarea {
 body .container form div .auto-width {
   width: auto;
 }
+body .center-text {
+  text-align: center;
+}
 
 /*# sourceMappingURL=style.css.map */
