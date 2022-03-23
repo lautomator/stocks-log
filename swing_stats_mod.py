@@ -104,7 +104,7 @@ def return_of_investment(data):
         shares = int(row['shares'])
         profit = (ext_p - ent_p) * shares
 
-        roi = round((profit / (ent_p * shares)) * 100, 2)
+        roi = round((profit / (ext_p * shares)) * 100, 2)
         all_rois.append(roi)
 
     avg_roi = round(sum(all_rois) / len(all_rois), 2)

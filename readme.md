@@ -1,6 +1,6 @@
 # Stocks Log
 
-Keep track of your investments, including risk, profit, and loss. The app generates an overall report with some basic metrics including, frequency of trades, PnL, and trading patterns. There is the option to include a chart with each trade record.
+Keep track of your investments, including risk, profit, and loss. The app generates an overall report with some basic metrics including, frequency of trades, PnL, and trading patterns. There is the option to include a chart with each trade record. The log is meant to be a repository for your short and long term trades and should be used for reflection, analysis, and education. It's not meant to track stock prices or make trades. You'll want a broker with real-tme data for that.
 
 This version of the app is intended as a demonstration of its features. Currently, it is not responsive to smaller screens (phones and tablets) and is primarily for the a desktop browser. I've included several fictional trades. This is not meant for the public or to be used in any way. A more robust version would have user accounts and a larger infastrcuture to include an entire administrative panel.
 

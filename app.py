@@ -190,6 +190,16 @@ def get_risk_per_share(entry_price, stop_price):
     return round(risk, 2)
 
 
+def return_of_investment(entry_price, exit_price, no_of_shares):
+    # (((entry price - exit price) * no of shares) /
+    # (exit price * no of shares)) * 100
+    # ref: https://www.investopedia.com/articles/basics/10/guide-to-calculating-roi.asp
+    
+    profit = (exit_price - entry_price) * no_of_shares
+    roi = round((profit / (exit_price * no_of_shares)) * 100, 2)
+    return roi
+
+
 def get_pnl(exit_price, entry_price, no_of_shares):
     result = float((exit_price - entry_price) * no_of_shares)
     return round(result, 2)
@@ -261,9 +271,19 @@ def show_post(post_id):
     pnl = None
 
     if isinstance(data['exit'], float):
-        pnl = get_pnl(data['exit'], data['entry'], data['shares'])
+        pnl = get_pnl(
+            data['exit'], 
+            data['entry'], 
+            data['shares']
+        )
+        roi = return_of_investment(
+            data['entry'], 
+            data['exit'], 
+            data['shares']
+        )
     else:
-        pnl = 'None'
+        pnl = 'n/a'
+        roi = 'n/a'
 
     if data['chart_url']:
         has_chart = True
@@ -275,6 +295,7 @@ def show_post(post_id):
         risk_data=risk_data,
         profit_data=profit_data,
         pnl=pnl,
+        roi=roi,
         has_chart=has_chart
     )
 
