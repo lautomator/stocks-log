@@ -2,4 +2,3 @@ __pycache__
 env
 ref
 .DS_store
-stocks.db
