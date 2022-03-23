@@ -1,1 +1,2 @@
-web: gunicorn myproject:app
+web: FLASK_ENV=development && flask run 
+
