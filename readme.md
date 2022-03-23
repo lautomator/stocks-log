@@ -4,6 +4,8 @@ Keep track of your investments, including risk, profit, and loss. The app genera
 
 This version of the app is intended as a demonstration of its features. Currently, it is not responsive to smaller screens (phones and tablets) and is primarily for a desktop browser. I've included several fictional trades as an example. This is not meant for the public or to be used in any way. A more robust version would have user accounts and a larger infastrcuture to include an entire administrative panel.
 
+TODO: add a link to the deployed demo version
+
 ## Development
 
 ### Requirements
