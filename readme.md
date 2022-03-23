@@ -7,7 +7,7 @@ This version of the app is intended as a demonstration of its features. Currentl
 ## Development
 
 ### Requirements
-This is a [Flask](https://flask.palletsprojects.com/en/2.0.x/) application that uses the Jinja templating system . You will need the following to do any development:
+This is a [Flask](https://flask.palletsprojects.com/en/2.0.x/) application that uses the Jinja templating system. You will need the following to do any development:
 
 * click
 * Flask
@@ -75,5 +75,7 @@ You can also use the `sass-watch.sh` script to watch for changes and update the 
 ## References
 
 [Flask Documentation](https://flask.palletsprojects.com/en/2.0.x/)
+
 [Jinja Templates](https://jinja.palletsprojects.com/en/3.0.x/templates/)
+
 [SQLite](https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/)
