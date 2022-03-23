@@ -4,7 +4,7 @@ Keep track of your investments, including risk, profit, and loss. The app genera
 
 This version of the app is intended as a demonstration of its features. Currently, it is not responsive to smaller screens (phones and tablets) and is primarily for a desktop browser. I've included several fictional trades as an example. This is not meant for the public or to be used in any way. A more robust version would have user accounts and a larger infastrcuture to include an entire administrative panel.
 
-TODO: add a link to the deployed demo version
+[View the Stocks Log demo.](https://damp-island-14971.herokuapp.com/)
 
 ## Development
 
@@ -74,6 +74,9 @@ sqlite> .import <path/to/csv/file> stocks_log
 
 You can also use the `sass-watch.sh` script to watch for changes and update the loaded stylesheets.
 
+### Heroku
+The demo version is running on [Heroku](https://damp-island-14971.herokuapp.com/). 
+
 ## References
 
 [Flask Documentation](https://flask.palletsprojects.com/en/2.0.x/)
@@ -81,3 +84,5 @@ You can also use the `sass-watch.sh` script to watch for changes and update the 
 [Jinja Templates](https://jinja.palletsprojects.com/en/3.0.x/templates/)
 
 [SQLite](https://flask.palletsprojects.com/en/2.0.x/patterns/sqlite3/)
+
+[Heroku](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true)
