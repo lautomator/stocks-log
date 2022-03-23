@@ -1,2 +1,2 @@
-web: FLASK_ENV=development && flask run 
+web: . env/bin/activate && FLASK_ENV=development && flask run 
 
